@@ -1,0 +1,63 @@
+=========================================================
+PERPUSTAKAAN KBM - Aplikasi Perpustakaan Digital (Laravel 12)
+Panduan Menjalankan Aplikasi
+=========================================================
+
+ISI PAKET:
+- Seluruh source code aplikasi
+- vendor/ (library PHP, tidak perlu composer install lagi)
+- database_dump.sql (struktur + isi database)
+
+============= KEBUTUHAN =============
+1. PHP >= 8.2  (disarankan menggunakan Laragon; sudah menyertakan PHP + MySQL + Apache)
+2. MySQL / MariaDB aktif
+
+========= LANGKAH MENJALANKAN =========
+A. Siapkan database:
+   1. Buat database dengan nama: perpustakaan_kbm
+   2. Import file database_dump.sql (bisa lewat phpMyAdmin: klik nama
+      database -> Import -> pilih database_dump.sql)
+      atau lewat terminal:
+      mysql -u root perpustakaan_kbm < database_dump.sql
+
+B. Konfigurasi (file .env sudah disertakan):
+      DB_CONNECTION=mysql
+      DB_HOST=127.0.0.1
+      DB_PORT=3306
+      DB_DATABASE=perpustakaan_kbm
+      DB_USERNAME=root
+      DB_PASSWORD=
+   Jika user/password MySQL Anda berbeda, sesuaikan bagian tersebut.
+
+C. Jalankan aplikasi (dari folder proyek):
+      php artisan serve
+   Lalu buka di browser: http://127.0.0.1:8000
+
+   (Alternatif Laragon: letakkan folder ke C:\laragon\www\ lalu akses
+    http://perpustakaan_kbm.test)
+
+============= FITUR UTAMA =============
+- Autentikasi berdasarkan role: Admin / Petugas / Anggota
+- Registrasi akun baru -> status PENDING (tidak bisa login)
+- Admin melakukan validasi akun & menentukan role (Admin/Petugas/Anggota)
+- Kelola data: Kategori, Penulis, Penerbit, Rak, Buku, Pengguna, Anggota
+- Transaksi: Peminjaman, Pengembalian, Denda (dengan riwayat)
+- Anggota: katalog, keranjang buku, pengajuan peminjaman, riwayat peminjaman
+- Laporan: Laporan Buku, Transaksi, Denda
+- Pengaturan aplikasi
+
+============= ALUR REGISTRASI (FITUR BARU) =============
+1. Pendaftar mendaftar di halaman Daftar -> akun berstatus PENDING
+2. Admin membuka menu sidebar: "Persetujuan Akun" (ada indikator jumlah)
+3. Admin memeriksa data pendaftar, memilih role, lalu menyetujui
+   atau mengisi alasan penolakan dan menolak
+4. Akun yang disetujui dapat login dan diarahkan ke dashboard sesuai role
+
+============= CATATAN TEKNIS =============
+- Tampilan memakai Tailwind via CDN, jadi TIDAK perlu npm install
+  (folder node_modules sengaja tidak disertakan)
+- Folder vendor sudah disertakan; jika berubah/terhapus jalankan:
+  composer install
+- Testing otomatis: buat database kosong "perpustakaan_kbm_test" lalu jalankan
+  "php artisan test" (phpunit.xml sudah diarahkan ke database test terpisah,
+  aman dan tidak akan menyentuh database asli)

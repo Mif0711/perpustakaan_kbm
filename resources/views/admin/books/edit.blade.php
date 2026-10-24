@@ -1,0 +1,82 @@
+@extends('layouts.app')
+
+@section('title', 'Edit Buku')
+@section('header_title', 'Edit Data Buku')
+
+@section('content')
+    <div class="bg-white border border-gray-100 rounded-lg p-6 max-w-3xl">
+        <form action="{{ route('admin.books.update', $book) }}" method="POST" enctype="multipart/form-data" class="space-y-5">
+            @csrf @method('PUT')
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                <div class="md:col-span-2">
+                    <label class="block text-xs font-medium text-gray-500 mb-1">Judul Buku *</label>
+                    <input type="text" name="judul" value="{{ old('judul', $book->judul) }}" class="w-full px-3 py-2.5 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-gray-800 focus:border-gray-800" required>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1">ISBN</label>
+                    <input type="text" name="isbn" value="{{ old('isbn', $book->isbn) }}" class="w-full px-3 py-2.5 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-gray-800 focus:border-gray-800">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1">Tahun Terbit *</label>
+                    <input type="number" name="tahun_terbit" value="{{ old('tahun_terbit', $book->tahun_terbit) }}" class="w-full px-3 py-2.5 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-gray-800 focus:border-gray-800" required>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1">Kategori *</label>
+                    <select name="category_id" class="w-full px-3 py-2.5 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-gray-800 focus:border-gray-800" required>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}" @selected(old('category_id', $book->category_id) == $category->id)>{{ $category->nama_kategori }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1">Penulis *</label>
+                    <select name="author_id" class="w-full px-3 py-2.5 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-gray-800 focus:border-gray-800" required>
+                        @foreach($authors as $author)
+                            <option value="{{ $author->id }}" @selected(old('author_id', $book->author_id) == $author->id)>{{ $author->nama_penulis }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1">Penerbit *</label>
+                    <select name="publisher_id" class="w-full px-3 py-2.5 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-gray-800 focus:border-gray-800" required>
+                        @foreach($publishers as $publisher)
+                            <option value="{{ $publisher->id }}" @selected(old('publisher_id', $book->publisher_id) == $publisher->id)>{{ $publisher->nama_penerbit }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1">Rak / Etalase</label>
+                    <select name="shelf_id" class="w-full px-3 py-2.5 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-gray-800 focus:border-gray-800">
+                        <option value="">Tidak Ada</option>
+                        @foreach($shelves as $shelf)
+                            <option value="{{ $shelf->id }}" @selected(old('shelf_id', $book->shelf_id) == $shelf->id)>{{ $shelf->nama_rak }} ({{ $shelf->kode_rak }})</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1">Jumlah Stok *</label>
+                    <input type="number" name="jumlah" value="{{ old('jumlah', $book->jumlah) }}" min="0" class="w-full px-3 py-2.5 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-gray-800 focus:border-gray-800" required>
+                    <p class="text-xs text-gray-400 mt-1">Stok tersedia saat ini: {{ $book->tersedia }}</p>
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 mb-1">Cover Buku Saat Ini</label>
+                    @if($book->cover)
+                        <img src="{{ asset('storage/' . $book->cover) }}" class="w-16 h-20 object-cover rounded mb-2">
+                    @else
+                        <p class="text-xs text-gray-400 mb-2">Tidak ada cover</p>
+                    @endif
+                    <input type="file" name="cover" class="w-full text-sm text-gray-500 file:mr-3 file:py-2 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-medium file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200">
+                </div>
+                <div class="md:col-span-2">
+                    <label class="block text-xs font-medium text-gray-500 mb-1">Deskripsi</label>
+                    <textarea name="deskripsi" rows="4" class="w-full px-3 py-2.5 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-gray-800 focus:border-gray-800">{{ old('deskripsi', $book->deskripsi) }}</textarea>
+                </div>
+            </div>
+            
+            <div class="flex space-x-3 pt-4">
+                <button type="submit" class="bg-gray-900 text-white px-4 py-2 rounded-md text-xs font-medium hover:bg-gray-800">Update</button>
+                <a href="{{ route('admin.books.index') }}" class="border border-gray-200 text-gray-600 px-4 py-2 rounded-md text-xs font-medium hover:bg-gray-50">Batal</a>
+            </div>
+        </form>
+    </div>
+@endsection
