@@ -4,7 +4,7 @@
 @section('header_title', 'Edit Data Buku')
 
 @section('content')
-    <div class="bg-white border border-gray-100 rounded-lg p-6 max-w-3xl">
+    <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-6 max-w-3xl">
         <form action="{{ route('admin.books.update', $book) }}" method="POST" enctype="multipart/form-data" class="space-y-5">
             @csrf @method('PUT')
             <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
@@ -74,7 +74,7 @@
             </div>
             
             <div class="flex space-x-3 pt-4">
-                <button type="submit" class="bg-gray-900 text-white px-4 py-2 rounded-md text-xs font-medium hover:bg-gray-800">Update</button>
+                <button type="submit" class="bg-gradient-to-r from-amber-600 to-orange-500 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-md shadow-amber-600/25 hover:from-amber-700 hover:to-orange-600 transition active:scale-[.98]">Update</button>
                 <a href="{{ route('admin.books.index') }}" class="border border-gray-200 text-gray-600 px-4 py-2 rounded-md text-xs font-medium hover:bg-gray-50">Batal</a>
             </div>
         </form>

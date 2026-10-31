@@ -10,7 +10,7 @@
     </div>
 
     @if($loans->count() > 0)
-    <div class="bg-white border border-gray-100 rounded-lg overflow-hidden">
+    <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
         <table class="w-full text-sm text-left">
             <thead class="bg-gray-50 text-gray-400 uppercase text-xs border-b border-gray-100">
                 <tr>
@@ -46,7 +46,7 @@
     </div>
     <div class="mt-4">{{ $loans->links() }}</div>
     @else
-    <div class="bg-white border border-gray-100 rounded-lg p-12 text-center">
+    <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-12 text-center">
         <svg class="w-16 h-16 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
         <p class="text-sm text-gray-400">Belum ada riwayat peminjaman</p>
     </div>

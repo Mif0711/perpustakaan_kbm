@@ -24,14 +24,14 @@
     </div>
 
     @if($items->isEmpty())
-        <div class="bg-white border border-gray-100 rounded-lg p-10 sm:p-14 text-center">
+        <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-10 sm:p-14 text-center">
             <div class="w-16 h-16 mx-auto rounded-full bg-gray-50 flex items-center justify-center text-gray-300 mb-5">
                 <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
             </div>
             <h2 class="text-base font-semibold text-gray-900">Keranjang buku kamu masih kosong</h2>
             <p class="text-sm text-gray-500 mt-2">Tambahkan buku dari katalog untuk mulai mengajukan peminjaman.</p>
             <a href="{{ route('anggota.katalog.index') }}"
-               class="inline-flex items-center justify-center gap-2 mt-6 px-5 py-2.5 rounded-md text-xs font-medium bg-gray-900 text-white hover:bg-gray-800">
+               class="inline-flex items-center justify-center gap-2 mt-6 px-5 py-2.5 rounded-md text-xs font-medium bg-gradient-to-r from-amber-600 to-orange-500 text-white hover:from-amber-700 hover:to-orange-600">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
                 Jelajahi Buku
             </a>
@@ -47,7 +47,7 @@
             <div class="grid lg:grid-cols-3 gap-6">
                 <!-- Daftar buku -->
                 <div class="lg:col-span-2 space-y-3">
-                    <div class="bg-white border border-gray-100 rounded-lg px-4 py-3 flex items-center justify-between">
+                    <div class="bg-white border border-slate-100 rounded-2xl shadow-sm px-4 py-3 flex items-center justify-between">
                         <label class="flex items-center gap-2.5 cursor-pointer select-none">
                             <input type="checkbox"
                                    class="w-4 h-4 rounded border-gray-300 text-gray-900 focus:ring-gray-900"
@@ -126,7 +126,7 @@
 
                 <!-- Ringkasan -->
                 <div>
-                    <div class="bg-white border border-gray-100 rounded-lg p-5 lg:sticky lg:top-24">
+                    <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-5 lg:sticky lg:top-24">
                         <h2 class="text-sm font-semibold text-gray-900">Ringkasan Pengajuan</h2>
 
                         <div class="mt-4 space-y-2 text-sm">
@@ -152,7 +152,7 @@
                             @csrf
                             <button type="submit"
                                     :disabled="selected.length === 0 || submitting"
-                                    class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-md text-xs font-medium bg-gray-900 text-white hover:bg-gray-800 disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed transition">
+                                    class="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-md text-xs font-medium bg-gradient-to-r from-amber-600 to-orange-500 text-white hover:from-amber-700 hover:to-orange-600 disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed transition">
                                 <svg x-show="submitting" class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
                                     <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>

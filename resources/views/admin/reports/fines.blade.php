@@ -6,10 +6,10 @@
 @section('content')
     <div class="flex justify-between items-center mb-6">
         <p class="text-sm text-gray-500">Filter denda berdasarkan tanggal pembayaran</p>
-        <button onclick="window.print()" class="bg-gray-900 text-white px-4 py-2 rounded-md text-xs font-medium hover:bg-gray-800">Print / PDF</button>
+        <button onclick="window.print()" class="bg-gradient-to-r from-amber-600 to-orange-500 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-md shadow-amber-600/25 hover:from-amber-700 hover:to-orange-600 transition active:scale-[.98]">Print / PDF</button>
     </div>
 
-    <form method="GET" action="{{ route('admin.reports.fines') }}" class="bg-white border border-gray-100 p-4 rounded-lg mb-4 flex gap-3 items-end printable-exclude">
+    <form method="GET" action="{{ route('admin.reports.fines') }}" class="bg-white border border-slate-100 rounded-2xl shadow-sm p-4 rounded-lg mb-4 flex gap-3 items-end printable-exclude">
         <div>
             <label class="block text-xs font-medium text-gray-500 mb-1">Dari Tanggal</label>
             <input type="date" name="start_date" value="{{ request('start_date') }}" class="px-3 py-2 border border-gray-200 rounded-md text-sm">
@@ -22,7 +22,7 @@
         <a href="{{ route('admin.reports.fines') }}" class="border border-gray-200 text-gray-600 px-4 py-2 rounded-md text-xs font-medium hover:bg-gray-50 h-9 flex items-center">Reset</a>
     </form>
 
-    <div class="bg-white border border-gray-100 rounded-lg overflow-hidden printable">
+    <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden printable">
         <table class="w-full text-sm text-left">
             <thead class="bg-gray-50 text-gray-400 uppercase text-xs border-b border-gray-100">
                 <tr>

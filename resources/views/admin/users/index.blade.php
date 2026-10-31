@@ -6,7 +6,7 @@
 @section('content')
     <div class="flex justify-between items-center mb-6">
         <p class="text-sm text-gray-500">Daftar akun yang dapat mengakses sistem</p>
-        <a href="{{ route('admin.users.create') }}" class="bg-gray-900 text-white px-4 py-2 rounded-md text-xs font-medium hover:bg-gray-800">+ Tambah User</a>
+        <a href="{{ route('admin.users.create') }}" class="bg-gradient-to-r from-amber-600 to-orange-500 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-md shadow-amber-600/25 hover:from-amber-700 hover:to-orange-600 transition active:scale-[.98]">+ Tambah User</a>
     </div>
 
     @if(session('success'))
@@ -16,7 +16,7 @@
         <div class="bg-red-50 border border-red-100 text-red-500 text-xs p-3 rounded-md mb-4">{{ session('error') }}</div>
     @endif
 
-    <div class="bg-white border border-gray-100 rounded-lg overflow-hidden">
+    <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
         <table class="w-full text-sm text-left">
             <thead class="bg-gray-50 text-gray-400 uppercase text-xs border-b border-gray-100">
                 <tr>

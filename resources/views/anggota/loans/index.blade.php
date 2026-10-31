@@ -14,7 +14,7 @@
     @endif
 
     <!-- Filter Status -->
-    <form method="GET" action="{{ route('anggota.loans.index') }}" class="bg-white border border-gray-100 p-4 rounded-lg mb-4 flex gap-2 items-center">
+    <form method="GET" action="{{ route('anggota.loans.index') }}" class="bg-white border border-slate-100 rounded-2xl shadow-sm p-4 rounded-lg mb-4 flex gap-2 items-center">
         <span class="text-xs text-gray-500">Filter:</span>
         <select name="status" class="px-3 py-2 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-gray-800">
             <option value="">Semua Status</option>
@@ -31,7 +31,7 @@
     @if($loans->count() > 0)
     <div class="space-y-4">
         @foreach($loans as $loan)
-        <div class="bg-white border border-gray-100 rounded-lg p-5">
+        <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-5">
             <div class="flex justify-between items-start mb-3">
                 <div>
                     <p class="text-sm font-medium text-gray-900">{{ $loan->kode_pinjam }}</p>
@@ -94,7 +94,7 @@
     
     <div class="mt-6">{{ $loans->links() }}</div>
     @else
-    <div class="bg-white border border-gray-100 rounded-lg p-12 text-center">
+    <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-12 text-center">
         <svg class="w-16 h-16 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path></svg>
         <p class="text-sm text-gray-400 mb-4">Belum ada pengajuan peminjaman</p>
         <a href="{{ route('anggota.catalog') }}" class="inline-flex items-center text-xs text-gray-700 font-medium hover:text-gray-900">

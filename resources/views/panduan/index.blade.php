@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panduan Aplikasi - {{ config('app.name', 'Perpus Zabitsa') }}</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="{{ asset('assets/tailwind.js') }}"></script>
+    <script defer src="{{ asset('assets/alpine.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('assets/fonts.css') }}">
     <style>
-        body { font-family: 'Inter', sans-serif; }
+        body { font-family: 'Plus Jakarta Sans', 'Segoe UI', sans-serif; }
         .smooth-scroll { scroll-behavior: smooth; }
     </style>
 </head>
@@ -25,7 +26,7 @@
                 <a href="#fitur" class="text-xs text-gray-600 hover:text-gray-900 hidden md:block">Fitur</a>
                 <a href="#alur" class="text-xs text-gray-600 hover:text-gray-900 hidden md:block">Alur</a>
                 <a href="#faq" class="text-xs text-gray-600 hover:text-gray-900 hidden md:block">FAQ</a>
-                <a href="{{ route('login') }}" class="bg-gray-900 text-white px-4 py-2 rounded-md text-xs font-medium hover:bg-gray-800">Masuk</a>
+                <a href="{{ route('login') }}" class="bg-gradient-to-r from-amber-600 to-orange-500 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-md shadow-amber-600/25 hover:from-amber-700 hover:to-orange-600 transition active:scale-[.98]">Masuk</a>
             </div>
         </div>
     </nav>
@@ -61,7 +62,7 @@
             <h2 class="text-2xl font-bold text-gray-900 mb-6">Tiga Level Pengguna</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <!-- Admin -->
-                <div class="bg-white border border-gray-100 rounded-lg p-6">
+                <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-6">
                     <div class="w-12 h-12 bg-purple-50 rounded-lg flex items-center justify-center mb-4">
                         <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                     </div>
@@ -69,7 +70,7 @@
                     <p class="text-xs text-gray-500 leading-relaxed">Pengelola utama sistem. Bertanggung jawab atas master data, manajemen user, persetujuan akun, dan konfigurasi sistem.</p>
                 </div>
                 <!-- Petugas -->
-                <div class="bg-white border border-gray-100 rounded-lg p-6">
+                <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-6">
                     <div class="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mb-4">
                         <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                     </div>
@@ -77,7 +78,7 @@
                     <p class="text-xs text-gray-500 leading-relaxed">Frontliner operasional sehari-hari. Melayani anggota, memproses peminjaman/pengembalian, dan mengelola denda.</p>
                 </div>
                 <!-- Anggota -->
-                <div class="bg-white border border-gray-100 rounded-lg p-6">
+                <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-6">
                     <div class="w-12 h-12 bg-green-50 rounded-lg flex items-center justify-center mb-4">
                         <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253"></path></svg>
                     </div>
@@ -91,43 +92,43 @@
         <section id="fitur" class="mb-16">
             <h2 class="text-2xl font-bold text-gray-900 mb-6">Fitur Utama</h2>
             <div class="space-y-3">
-                <div class="bg-white border border-gray-100 rounded-lg p-4 flex items-start space-x-3">
-                    <span class="bg-gray-900 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0">1</span>
+                <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-4 flex items-start space-x-3">
+                    <span class="bg-gradient-to-r from-amber-600 to-orange-500 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0">1</span>
                     <div>
                         <h3 class="text-sm font-medium text-gray-900">Registrasi & Persetujuan Akun</h3>
                         <p class="text-xs text-gray-500 mt-1">Setiap pendaftar baru harus diverifikasi oleh Admin. Admin yang menentukan role (Admin/Petugas/Anggota). Akun belum disetujui tidak bisa login.</p>
                     </div>
                 </div>
-                <div class="bg-white border border-gray-100 rounded-lg p-4 flex items-start space-x-3">
-                    <span class="bg-gray-900 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0">2</span>
+                <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-4 flex items-start space-x-3">
+                    <span class="bg-gradient-to-r from-amber-600 to-orange-500 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0">2</span>
                     <div>
                         <h3 class="text-sm font-medium text-gray-900">Katalog Buku Online</h3>
                         <p class="text-xs text-gray-500 mt-1">Anggota bisa browse katalog buku lengkap dengan cover, kategori, dan status ketersediaan stok secara real-time.</p>
                     </div>
                 </div>
-                <div class="bg-white border border-gray-100 rounded-lg p-4 flex items-start space-x-3">
-                    <span class="bg-gray-900 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0">3</span>
+                <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-4 flex items-start space-x-3">
+                    <span class="bg-gradient-to-r from-amber-600 to-orange-500 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0">3</span>
                     <div>
                         <h3 class="text-sm font-medium text-gray-900">Keranjang & Pengajuan Peminjaman</h3>
                         <p class="text-xs text-gray-500 mt-1">Anggota menambahkan buku ke keranjang, lalu mengajukan peminjaman. Sistem otomatis validasi stok, batas maksimal buku, dan denda tertunggak.</p>
                     </div>
                 </div>
-                <div class="bg-white border border-gray-100 rounded-lg p-4 flex items-start space-x-3">
-                    <span class="bg-gray-900 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0">4</span>
+                <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-4 flex items-start space-x-3">
+                    <span class="bg-gradient-to-r from-amber-600 to-orange-500 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0">4</span>
                     <div>
                         <h3 class="text-sm font-medium text-gray-900">Approval Pengajuan oleh Petugas</h3>
                         <p class="text-xs text-gray-500 mt-1">Petugas melihat daftar pengajuan masuk, bisa menyetujui (stok berkurang otomatis) atau menolak (dengan alasan).</p>
                     </div>
                 </div>
-                <div class="bg-white border border-gray-100 rounded-lg p-4 flex items-start space-x-3">
-                    <span class="bg-gray-900 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0">5</span>
+                <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-4 flex items-start space-x-3">
+                    <span class="bg-gradient-to-r from-amber-600 to-orange-500 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0">5</span>
                     <div>
                         <h3 class="text-sm font-medium text-gray-900">Pengembalian & Denda Otomatis</h3>
                         <p class="text-xs text-gray-500 mt-1">Sistem otomatis menghitung denda keterlambatan berdasarkan hari terlambat × nominal denda per hari (diatur di Pengaturan).</p>
                     </div>
                 </div>
-                <div class="bg-white border border-gray-100 rounded-lg p-4 flex items-start space-x-3">
-                    <span class="bg-gray-900 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0">6</span>
+                <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-4 flex items-start space-x-3">
+                    <span class="bg-gradient-to-r from-amber-600 to-orange-500 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0">6</span>
                     <div>
                         <h3 class="text-sm font-medium text-gray-900">Laporan & Pengaturan Dinamis</h3>
                         <p class="text-xs text-gray-500 mt-1">Admin bisa generate laporan (Buku, Transaksi, Denda) dengan filter tanggal, dan mengubah konfigurasi sistem tanpa ubah kode.</p>
@@ -140,7 +141,7 @@
         <section id="alur" class="mb-16">
             <h2 class="text-2xl font-bold text-gray-900 mb-6">Alur Peminjaman Buku</h2>
             
-            <div class="bg-white border border-gray-100 rounded-lg p-6">
+            <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-6">
                 <h3 class="text-sm font-medium text-gray-800 mb-4 flex items-center">
                     <span class="bg-green-100 text-green-600 text-xs font-bold px-2 py-1 rounded mr-2">ANGGOTA</span>
                     Langkah 1-4 (Sisi Anggota)
@@ -169,7 +170,7 @@
                 <svg class="w-6 h-6 mx-auto text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
             </div>
 
-            <div class="bg-white border border-gray-100 rounded-lg p-6">
+            <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-6">
                 <h3 class="text-sm font-medium text-gray-800 mb-4 flex items-center">
                     <span class="bg-blue-100 text-blue-600 text-xs font-bold px-2 py-1 rounded mr-2">PETUGAS</span>
                     Langkah 5-6 (Sisi Petugas)
@@ -190,7 +191,7 @@
                 <svg class="w-6 h-6 mx-auto text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
             </div>
 
-            <div class="bg-white border border-gray-100 rounded-lg p-6">
+            <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-6">
                 <h3 class="text-sm font-medium text-gray-800 mb-4 flex items-center">
                     <span class="bg-green-100 text-green-600 text-xs font-bold px-2 py-1 rounded mr-2">ANGGOTA</span>
                     Langkah 7-8 (Pengembalian)
@@ -237,7 +238,7 @@
         <section id="faq" class="mb-16">
             <h2 class="text-2xl font-bold text-gray-900 mb-6">Pertanyaan Umum (FAQ)</h2>
             <div class="space-y-3">
-                <div class="bg-white border border-gray-100 rounded-lg overflow-hidden">
+                <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
                     <details class="group">
                         <summary class="px-6 py-4 cursor-pointer flex justify-between items-center text-sm font-medium text-gray-900">
                             Bagaimana cara mendaftar akun?
@@ -248,7 +249,7 @@
                         </div>
                     </details>
                 </div>
-                <div class="bg-white border border-gray-100 rounded-lg overflow-hidden">
+                <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
                     <details class="group">
                         <summary class="px-6 py-4 cursor-pointer flex justify-between items-center text-sm font-medium text-gray-900">
                             Kenapa saya tidak bisa login?
@@ -259,7 +260,7 @@
                         </div>
                     </details>
                 </div>
-                <div class="bg-white border border-gray-100 rounded-lg overflow-hidden">
+                <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
                     <details class="group">
                         <summary class="px-6 py-4 cursor-pointer flex justify-between items-center text-sm font-medium text-gray-900">
                             Kenapa pengajuan peminjaman saya ditolak?
@@ -270,7 +271,7 @@
                         </div>
                     </details>
                 </div>
-                <div class="bg-white border border-gray-100 rounded-lg overflow-hidden">
+                <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
                     <details class="group">
                         <summary class="px-6 py-4 cursor-pointer flex justify-between items-center text-sm font-medium text-gray-900">
                             Bagaimana cara menghitung denda?
@@ -281,7 +282,7 @@
                         </div>
                     </details>
                 </div>
-                <div class="bg-white border border-gray-100 rounded-lg overflow-hidden">
+                <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
                     <details class="group">
                         <summary class="px-6 py-4 cursor-pointer flex justify-between items-center text-sm font-medium text-gray-900">
                             Apakah keranjang saya akan hilang jika saya logout?
@@ -297,7 +298,7 @@
 
         <!-- Kontak -->
         <section class="mb-16">
-            <div class="bg-gray-900 text-white rounded-lg p-8 text-center">
+            <div class="bg-amber-900 text-white rounded-lg p-8 text-center">
                 <h2 class="text-xl font-bold mb-2">Butuh Bantuan?</h2>
                 <p class="text-sm text-gray-400 mb-6">Hubungi petugas perpustakaan jika Anda mengalami kendala atau ada pertanyaan lain.</p>
                 <a href="{{ route('login') }}" class="bg-white text-gray-900 px-6 py-3 rounded-md text-sm font-medium hover:bg-gray-100 inline-block">Login Sekarang</a>

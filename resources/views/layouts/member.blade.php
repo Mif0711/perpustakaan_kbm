@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ $settings['nama_perpustakaan'] ?? 'Perpustakaan' }} - @yield('title', 'Katalog Buku')</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="{{ asset('assets/tailwind.js') }}"></script>
+    <script defer src="{{ asset('assets/alpine.min.js') }}"></script>
     <style>
         body { font-family: 'Inter', sans-serif; }
     </style>
@@ -21,7 +21,7 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6">
             <div class="h-16 flex items-center justify-between gap-3">
                 <a href="{{ route('anggota.katalog.index') }}" class="flex items-center gap-2 min-w-0">
-                    <span class="w-9 h-9 rounded-md bg-gray-900 text-white flex items-center justify-center flex-none">
+                    <span class="w-9 h-9 rounded-md bg-amber-900 text-white flex items-center justify-center flex-none">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                     </span>
                     <span class="truncate text-sm font-semibold text-gray-900">{{ $settings['nama_perpustakaan'] ?? 'Perpustakaan' }}</span>
@@ -29,11 +29,11 @@
 
                 <nav class="flex items-center gap-1 sm:gap-2">
                     <a href="{{ route('anggota.katalog.index') }}"
-                       class="px-3 py-2 rounded-md text-xs sm:text-sm {{ request()->routeIs('anggota.katalog.*') ? 'bg-gray-900 text-white' : 'text-gray-600 hover:bg-gray-100' }}">
+                       class="px-3 py-2 rounded-md text-xs sm:text-sm {{ request()->routeIs('anggota.katalog.*') ? 'bg-amber-900 text-white' : 'text-gray-600 hover:bg-gray-100' }}">
                         Katalog
                     </a>
                     <a href="{{ route('anggota.cart.index') }}"
-                       class="relative flex items-center gap-2 px-3 py-2 rounded-md text-xs sm:text-sm {{ request()->routeIs('anggota.cart.*') ? 'bg-gray-900 text-white' : 'text-gray-600 hover:bg-gray-100' }}">
+                       class="relative flex items-center gap-2 px-3 py-2 rounded-md text-xs sm:text-sm {{ request()->routeIs('anggota.cart.*') ? 'bg-amber-900 text-white' : 'text-gray-600 hover:bg-gray-100' }}">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                         <span class="hidden sm:inline">Keranjang</span>
                         <span class="min-w-[1.25rem] h-5 px-1 rounded-full bg-red-500 text-white text-[10px] font-semibold flex items-center justify-center">{{ $cartCount }}</span>

@@ -9,7 +9,7 @@
     </a>
 
     <div class="grid md:grid-cols-3 gap-6">
-        <div class="bg-white border border-gray-100 rounded-lg p-4">
+        <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-4">
             <div class="aspect-[3/4] bg-gray-50 rounded-md overflow-hidden">
                 @if($book->cover)
                     <img src="{{ asset('storage/' . $book->cover) }}" alt="Sampul {{ $book->judul }}" class="w-full h-full object-cover">
@@ -21,7 +21,7 @@
             </div>
         </div>
 
-        <div class="md:col-span-2 bg-white border border-gray-100 rounded-lg p-6">
+        <div class="md:col-span-2 bg-white border border-slate-100 rounded-2xl shadow-sm p-6">
             <div class="flex flex-wrap items-start justify-between gap-3">
                 <div>
                     <p class="text-[10px] uppercase tracking-wider text-gray-400">{{ $book->category->nama_kategori ?? 'Tanpa kategori' }}</p>
@@ -59,7 +59,7 @@
                     <form method="POST" action="{{ route('anggota.cart.store', $book) }}">
                         @csrf
                         <button type="submit"
-                            class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-md text-xs font-medium bg-gray-900 text-white hover:bg-gray-800">
+                            class="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-md text-xs font-medium bg-gradient-to-r from-amber-600 to-orange-500 text-white hover:from-amber-700 hover:to-orange-600">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
                             Tambah ke Keranjang
                         </button>

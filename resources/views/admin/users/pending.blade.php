@@ -18,7 +18,7 @@
     </style>
 
     <!-- Indikator jumlah akun menunggu validasi -->
-    <div class="bg-white border border-gray-100 rounded-lg p-5 mb-5 flex items-center justify-between">
+    <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-5 mb-5 flex items-center justify-between">
         <div>
             <p class="text-xs text-gray-400 uppercase tracking-wide font-medium">Menunggu Validasi</p>
             <p class="text-3xl font-light text-gray-900 mt-1">{{ $pendingCount }}</p>
@@ -44,13 +44,13 @@
             <option value="rejected" {{ $status === 'rejected' ? 'selected' : '' }}>Ditolak</option>
             <option value="all" {{ $status === 'all' ? 'selected' : '' }}>Semua Status</option>
         </select>
-        <button type="submit" class="bg-gray-900 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-800">Terapkan</button>
+        <button type="submit" class="border-slate-200 bg-white text-slate-700 px-4 py-2 rounded-xl text-sm font-semibold hover:bg-slate-50 transition">Terapkan</button>
         @if(request('q') || $status !== 'pending')
             <a href="{{ route('admin.users.pending') }}" class="px-4 py-2 border border-gray-200 rounded-md text-sm text-gray-600 hover:bg-gray-50 text-center">Reset</a>
         @endif
     </form>
 
-    <div class="bg-white border border-gray-100 rounded-lg overflow-hidden">
+    <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
         <div class="overflow-x-auto">
         <table class="w-full text-sm text-left">
             <thead class="bg-gray-50 text-gray-400 uppercase text-xs border-b border-gray-100">
@@ -90,7 +90,7 @@
                                 Detail
                             </button>
                             <button type="button" onclick="openModal({{ $user->id }})"
-                                class="bg-gray-900 text-white px-3 py-1.5 rounded-md text-xs font-medium hover:bg-gray-800 cursor-pointer">
+                                class="bg-gradient-to-r from-amber-600 to-orange-500 text-white px-3 py-1.5 rounded-xl text-xs font-bold shadow-md shadow-amber-600/25 hover:from-amber-700 hover:to-orange-600 transition active:scale-[.98] cursor-pointer">
                                 Proses Validasi
                             </button>
                         @elseif($user->status === 'approved')

@@ -15,7 +15,7 @@
         </a>
     </div>
 
-    <form method="GET" action="{{ route('anggota.katalog.index') }}" class="bg-white border border-gray-100 rounded-lg p-4 mb-6 flex flex-col sm:flex-row gap-2">
+    <form method="GET" action="{{ route('anggota.katalog.index') }}" class="bg-white border border-slate-100 rounded-2xl shadow-sm p-4 mb-6 flex flex-col sm:flex-row gap-2">
         <input type="text" name="search" value="{{ $search }}" placeholder="Cari judul, kode buku, atau penulis..."
                class="flex-1 px-3 py-2 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-gray-800 focus:border-gray-800">
         <select name="category" class="px-3 py-2 border border-gray-200 rounded-md text-sm text-gray-700 focus:outline-none focus:ring-1 focus:ring-gray-800 focus:border-gray-800">
@@ -24,14 +24,14 @@
                 <option value="{{ $category->id }}" @selected((string) $categoryId === (string) $category->id)>{{ $category->nama_kategori }}</option>
             @endforeach
         </select>
-        <button type="submit" class="px-4 py-2 rounded-md text-xs font-medium bg-gray-900 text-white hover:bg-gray-800">Cari</button>
+        <button type="submit" class="px-4 py-2 rounded-md text-xs font-medium bg-gradient-to-r from-amber-600 to-orange-500 text-white hover:from-amber-700 hover:to-orange-600">Cari</button>
         @if($search !== '' || $categoryId)
             <a href="{{ route('anggota.katalog.index') }}" class="px-4 py-2 rounded-md text-xs font-medium border border-gray-200 text-gray-600 hover:bg-gray-50 text-center">Reset</a>
         @endif
     </form>
 
     @if($books->isEmpty())
-        <div class="bg-white border border-gray-100 rounded-lg p-10 text-center">
+        <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-10 text-center">
             <div class="w-12 h-12 mx-auto rounded-full bg-gray-50 flex items-center justify-center text-gray-300 mb-4">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M17 11a6 6 0 11-12 0 6 6 0 0112 0z"></path></svg>
             </div>
@@ -45,7 +45,7 @@
                     $inCart = in_array($book->id, $cartBookIds);
                     $available = $book->tersedia > 0;
                 @endphp
-                <div class="bg-white border border-gray-100 rounded-lg overflow-hidden flex flex-col">
+                <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden flex flex-col">
                     <div class="aspect-[3/4] bg-gray-50 relative">
                         @if($book->cover)
                             <img src="{{ asset('storage/' . $book->cover) }}" alt="Sampul {{ $book->judul }}" class="w-full h-full object-cover">
@@ -84,7 +84,7 @@
                                 <form method="POST" action="{{ route('anggota.cart.store', $book) }}">
                                     @csrf
                                     <button type="submit"
-                                        class="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-md text-xs font-medium bg-gray-900 text-white hover:bg-gray-800">
+                                        class="w-full inline-flex items-center justify-center gap-1.5 px-3 py-2 rounded-md text-xs font-medium bg-gradient-to-r from-amber-600 to-orange-500 text-white hover:from-amber-700 hover:to-orange-600">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path></svg>
                                         Tambah ke Keranjang
                                     </button>

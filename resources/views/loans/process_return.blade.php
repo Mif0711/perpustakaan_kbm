@@ -5,7 +5,7 @@
 
 @section('content')
     <div class="max-w-4xl">
-        <div class="bg-white border border-gray-100 rounded-lg p-6 mb-6">
+        <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-6 mb-6">
             <div class="flex justify-between items-center mb-4 pb-3 border-b border-gray-100">
                 <div>
                     <h3 class="text-sm font-medium text-gray-800">Kode: {{ $loan->kode_pinjam }}</h3>
@@ -52,7 +52,7 @@
             </div>
         </div>
 
-        <form action="{{ route('returns.store', $loan) }}" method="POST" class="bg-white border border-gray-100 rounded-lg p-6">
+        <form action="{{ route('returns.store', $loan) }}" method="POST" class="bg-white border border-slate-100 rounded-2xl shadow-sm p-6">
             @csrf
             <div class="mb-4">
                 <label class="block text-xs font-medium text-gray-500 mb-1">Catatan (Opsional)</label>
@@ -61,7 +61,7 @@
             
             <div class="flex space-x-3 justify-end">
                 <a href="{{ route('returns.index') }}" class="border border-gray-200 text-gray-600 px-4 py-2 rounded-md text-xs font-medium hover:bg-gray-50">Batal</a>
-                <button type="submit" class="bg-gray-900 text-white px-4 py-2 rounded-md text-xs font-medium hover:bg-gray-800">Konfirmasi Pengembalian</button>
+                <button type="submit" class="bg-gradient-to-r from-amber-600 to-orange-500 text-white px-4 py-2 rounded-xl text-xs font-bold shadow-md shadow-amber-600/25 hover:from-amber-700 hover:to-orange-600 transition active:scale-[.98]">Konfirmasi Pengembalian</button>
             </div>
         </form>
     </div>
