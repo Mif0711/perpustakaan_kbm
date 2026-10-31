@@ -22,7 +22,7 @@
             @method('PUT')
 
             <!-- Identitas Perpustakaan -->
-            <div class="bg-white border border-gray-100 rounded-lg p-6">
+            <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-6">
                 <h3 class="text-sm font-medium text-gray-800 mb-4 pb-3 border-b border-gray-100">Identitas Perpustakaan</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div class="md:col-span-2">
@@ -45,7 +45,7 @@
             </div>
 
             <!-- Konfigurasi Transaksi -->
-            <div class="bg-white border border-gray-100 rounded-lg p-6">
+            <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-6">
                 <h3 class="text-sm font-medium text-gray-800 mb-4 pb-3 border-b border-gray-100">Konfigurasi Transaksi</h3>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
                     <div>
@@ -67,7 +67,7 @@
             </div>
 
             <div class="flex justify-end">
-                <button type="submit" class="bg-gray-900 text-white px-6 py-2 rounded-md text-xs font-medium hover:bg-gray-800">Simpan Pengaturan</button>
+                <button type="submit" class="bg-gradient-to-r from-amber-600 to-orange-500 text-white px-6 py-2 rounded-xl text-xs font-bold shadow-md shadow-amber-600/25 hover:from-amber-700 hover:to-orange-600 transition active:scale-[.98]">Simpan Pengaturan</button>
             </div>
         </form>
     </div>

@@ -20,7 +20,7 @@
             @csrf
 
             <!-- Pencarian Anggota -->
-            <div class="bg-white border border-gray-100 rounded-lg p-6">
+            <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-6">
                 <h3 class="text-sm font-medium text-gray-800 mb-4 pb-3 border-b border-gray-100">1. Cari Data Anggota</h3>
                 <div class="flex space-x-3">
                     <input type="text" id="searchMemberInput" placeholder="Masukkan Kode Member atau Nama..." class="flex-1 px-3 py-2.5 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-gray-800 focus:border-gray-800" onkeypress="if(event.key==='Enter'){event.preventDefault();searchMember();}">
@@ -40,7 +40,7 @@
             </div>
 
             <!-- Pencarian Buku -->
-            <div class="bg-white border border-gray-100 rounded-lg p-6">
+            <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-6">
                 <h3 class="text-sm font-medium text-gray-800 mb-4 pb-3 border-b border-gray-100">2. Tambahkan Buku</h3>
                 <div class="flex space-x-3">
                     <input type="text" id="searchBookInput" placeholder="Cari judul atau kode buku..." class="flex-1 px-3 py-2.5 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-gray-800 focus:border-gray-800" onkeypress="if(event.key==='Enter'){event.preventDefault();searchBook();}">
@@ -59,7 +59,7 @@
             </div>
 
             <div class="flex justify-end">
-                <button type="submit" id="btnSubmit" class="bg-gray-900 text-white px-6 py-2 rounded-md text-xs font-medium hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed" disabled>Simpan Transaksi</button>
+                <button type="submit" id="btnSubmit" class="bg-gradient-to-r from-amber-600 to-orange-500 text-white px-6 py-2 rounded-xl text-xs font-bold shadow-md shadow-amber-600/25 hover:from-amber-700 hover:to-orange-600 transition active:scale-[.98] disabled:opacity-50 disabled:cursor-not-allowed" disabled>Simpan Transaksi</button>
             </div>
         </form>
     </div>

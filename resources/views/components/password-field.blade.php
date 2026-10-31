@@ -9,7 +9,7 @@
 
 <div>
     @if(trim($label))
-    <label for="{{ $name }}" class="block text-xs font-medium text-gray-500 mb-1">{{ $label }}@if($required) <span class="text-red-300">*</span>@endif</label>
+    <label for="{{ $name }}" class="block text-xs font-bold uppercase tracking-wide text-slate-400 mb-1.5">{{ $label }}@if($required) <span class="text-rose-300">*</span>@endif</label>
     @endif
     <div x-data="{ show: false }" class="relative">
         {{-- type awal tetap password; Alpine yang mengubah type saat tombol mata ditekan --}}
@@ -19,7 +19,7 @@
                name="{{ $name }}"
                value="{{ $value }}"
                @if($required) required @endif
-               class="w-full px-3 py-2.5 pr-10 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-gray-800 focus:border-gray-800 transition-colors">
+               class="w-full px-3.5 py-2.5 pr-10 border border-slate-200 bg-slate-50/60 rounded-xl text-sm outline-none transition shadow-sm hover:bg-white focus:bg-white focus:border-amber-500 focus:ring-2 focus:ring-amber-100">
         <button type="button"
                 @click="show = !show"
                 :aria-label="show ? 'Sembunyikan sandi' : 'Tampilkan sandi'"

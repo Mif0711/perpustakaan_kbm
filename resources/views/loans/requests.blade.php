@@ -16,7 +16,7 @@
     @if($loans->count() > 0)
     <div class="space-y-4">
         @foreach($loans as $loan)
-        <div class="bg-white border border-gray-100 rounded-lg p-5">
+        <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-5">
             <div class="flex justify-between items-start mb-3">
                 <div>
                     <p class="text-sm font-medium text-gray-900">{{ $loan->kode_pinjam }}</p>
@@ -79,7 +79,7 @@
     
     <div class="mt-6">{{ $loans->links() }}</div>
     @else
-    <div class="bg-white border border-gray-100 rounded-lg p-12 text-center">
+    <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-12 text-center">
         <svg class="w-16 h-16 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
         <p class="text-sm text-gray-400">Tidak ada pengajuan yang menunggu persetujuan.</p>
     </div>

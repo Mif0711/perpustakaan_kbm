@@ -5,7 +5,7 @@
 
 @section('content')
     <div class="max-w-5xl">
-        <div class="bg-white border border-gray-100 rounded-lg p-6 mb-6">
+        <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-6 mb-6">
             <div class="flex justify-between items-center">
                 <div>
                     <h3 class="text-sm font-medium text-gray-800">Kode: {{ $fine->kode_denda }}</h3>
@@ -22,7 +22,7 @@
             </div>
         </div>
 
-        <div class="bg-white border border-gray-100 rounded-lg overflow-hidden">
+        <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
             <div class="px-5 py-4 border-b border-gray-100 flex items-center justify-between">
                 <h3 class="text-sm font-medium text-gray-700">History Perubahan Denda</h3>
                 <p class="text-xs text-gray-400">{{ $fine->histories->count() }} Riwayat</p>

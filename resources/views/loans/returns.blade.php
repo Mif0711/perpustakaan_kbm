@@ -10,7 +10,7 @@
         <div class="bg-green-50 border border-green-100 text-green-600 text-xs p-3 rounded-md mb-4">{{ session('success') }}</div>
     @endif
 
-    <div class="bg-white border border-gray-100 rounded-lg overflow-hidden">
+    <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
         <table class="w-full text-sm text-left">
             <thead class="bg-gray-50 text-gray-400 uppercase text-xs border-b border-gray-100">
                 <tr>
@@ -29,7 +29,7 @@
                     <td class="py-3 px-5 text-gray-600">{{ \Carbon\Carbon::parse($loan->tanggal_pinjam)->format('d M Y') }}</td>
                     <td class="py-3 px-5 text-gray-600">{{ \Carbon\Carbon::parse($loan->tanggal_kembali)->format('d M Y') }}</td>
                     <td class="py-3 px-5 text-right">
-                        <a href="{{ route('returns.process', $loan) }}" class="bg-gray-900 text-white px-3 py-1.5 rounded-md text-xs font-medium hover:bg-gray-800">Proses Kembali</a>
+                        <a href="{{ route('returns.process', $loan) }}" class="bg-gradient-to-r from-amber-600 to-orange-500 text-white px-3 py-1.5 rounded-xl text-xs font-bold shadow-md shadow-amber-600/25 hover:from-amber-700 hover:to-orange-600 transition active:scale-[.98]">Proses Kembali</a>
                     </td>
                 </tr>
                 @empty
