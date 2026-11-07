@@ -252,23 +252,33 @@ class LoanController extends Controller
         return view('loans.returns', compact('loans'));
     }
 
+    /**
+     * Hitung keterlambatan berdasarkan selisih TANGGAL (bukan jam).
+     * Kembali di hari batas kembali (jam berapa pun) = tepat waktu, denda 0.
+     *
+     * @return array{0:int,1:int} [terlambatHari, totalDenda]
+     */
+    private function hitungKeterlambatan(Loan $loan): array
+    {
+        $dendaPerHari = (int) (Setting::where('key', 'denda_per_hari')->value('value') ?? 1000);
+
+        $batasKembali = Carbon::parse($loan->tanggal_kembali)->startOfDay();
+        $hariIni = Carbon::now()->startOfDay();
+
+        $terlambatHari = 0;
+        if ($hariIni->greaterThan($batasKembali)) {
+            // Kedua tanggal sudah startOfDay, jadi hasilnya selalu bilangan bulat
+            $terlambatHari = (int) $batasKembali->diffInDays($hariIni);
+        }
+
+        return [$terlambatHari, $terlambatHari * $dendaPerHari];
+    }
+
     public function processReturn(Loan $loan)
     {
         $loan->load(['member', 'details.book']);
-        
-        $settings = Setting::pluck('value', 'key')->toArray();
-        $dendaPerHari = (int) ($settings['denda_per_hari'] ?? 1000);
 
-        $batasKembali = Carbon::parse($loan->tanggal_kembali);
-        $hariIni = Carbon::now();
-        
-        $terlambatHari = 0;
-        $totalDenda = 0;
-
-        if ($hariIni > $batasKembali) {
-            $terlambatHari = $batasKembali->diffInDays($hariIni);
-            $totalDenda = $terlambatHari * $dendaPerHari;
-        }
+        [$terlambatHari, $totalDenda] = $this->hitungKeterlambatan($loan);
 
         return view('loans.process_return', compact('loan', 'terlambatHari', 'totalDenda'));
     }
@@ -279,19 +289,9 @@ class LoanController extends Controller
             return redirect()->route('returns.index')->with('error', 'Buku ini sudah dikembalikan sebelumnya.');
         }
 
-        $settings = Setting::pluck('value', 'key')->toArray();
-        $dendaPerHari = (int) ($settings['denda_per_hari'] ?? 1000);
+        [$terlambatHari, $totalDenda] = $this->hitungKeterlambatan($loan);
 
-        $batasKembali = Carbon::parse($loan->tanggal_kembali);
         $hariIni = Carbon::now();
-        
-        $terlambatHari = 0;
-        $totalDenda = 0;
-
-        if ($hariIni > $batasKembali) {
-            $terlambatHari = $batasKembali->diffInDays($hariIni);
-            $totalDenda = $terlambatHari * $dendaPerHari;
-        }
 
         $loan->update([
             'tanggal_dikembalikan' => $hariIni,
