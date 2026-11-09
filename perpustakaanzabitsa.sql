@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1deb3
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Nov 07, 2026 at 03:53 PM
--- Server version: 8.0.30
--- PHP Version: 8.3.32
+-- Generation Time: Nov 09, 2026 at 12:57 AM
+-- Server version: 10.11.14-MariaDB-0ubuntu0.24.04.1
+-- PHP Version: 8.4.27
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,13 +28,13 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `account_validation_logs` (
-  `id` bigint UNSIGNED NOT NULL,
-  `user_id` bigint UNSIGNED NOT NULL,
-  `acted_by` bigint UNSIGNED DEFAULT NULL,
-  `action` enum('approved','rejected','role_changed') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `old_role` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `new_role` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `reason` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `acted_by` bigint(20) UNSIGNED DEFAULT NULL,
+  `action` enum('approved','rejected','role_changed') NOT NULL,
+  `old_role` varchar(20) DEFAULT NULL,
+  `new_role` varchar(20) DEFAULT NULL,
+  `reason` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -46,10 +46,10 @@ CREATE TABLE `account_validation_logs` (
 --
 
 CREATE TABLE `authors` (
-  `id` bigint UNSIGNED NOT NULL,
-  `kode_penulis` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nama_penulis` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `biografi` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `kode_penulis` varchar(255) NOT NULL,
+  `nama_penulis` varchar(255) NOT NULL,
+  `biografi` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -72,19 +72,19 @@ INSERT INTO `authors` (`id`, `kode_penulis`, `nama_penulis`, `biografi`, `create
 --
 
 CREATE TABLE `books` (
-  `id` bigint UNSIGNED NOT NULL,
-  `kode_buku` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `judul` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `isbn` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `category_id` bigint UNSIGNED NOT NULL,
-  `publisher_id` bigint UNSIGNED NOT NULL,
-  `author_id` bigint UNSIGNED NOT NULL,
-  `shelf_id` bigint UNSIGNED DEFAULT NULL,
-  `tahun_terbit` year DEFAULT NULL,
-  `jumlah` int NOT NULL DEFAULT '0',
-  `tersedia` int NOT NULL DEFAULT '0',
-  `cover` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `deskripsi` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `kode_buku` varchar(255) NOT NULL,
+  `judul` varchar(255) NOT NULL,
+  `isbn` varchar(255) DEFAULT NULL,
+  `category_id` bigint(20) UNSIGNED NOT NULL,
+  `publisher_id` bigint(20) UNSIGNED NOT NULL,
+  `author_id` bigint(20) UNSIGNED NOT NULL,
+  `shelf_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `tahun_terbit` year(4) DEFAULT NULL,
+  `jumlah` int(11) NOT NULL DEFAULT 0,
+  `tersedia` int(11) NOT NULL DEFAULT 0,
+  `cover` varchar(255) DEFAULT NULL,
+  `deskripsi` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -1058,7 +1058,7 @@ INSERT INTO `books` (`id`, `kode_buku`, `judul`, `isbn`, `category_id`, `publish
 (961, 'J093', 'Humaira Dan Al Farisi', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
 (962, 'J094', 'The Playlist', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
 (963, 'J095', 'Christmas At Carrington\'S', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
-(964, 'J096', 'Once Upon A Time In St. Peterburg', NULL, 1, 1, 1, NULL, NULL, 1, 0, NULL, NULL, NULL, '2026-11-03 08:25:47'),
+(964, 'J096', 'Once Upon A Time In St. Peterburg', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, '2026-11-07 09:32:28'),
 (965, 'J097', 'Api Awan Asap', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
 (966, 'J098', 'My Bittersweet Marriage', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
 (967, 'J099', 'Complicated Thing Called Love', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
@@ -1075,7 +1075,7 @@ INSERT INTO `books` (`id`, `kode_buku`, `judul`, `isbn`, `category_id`, `publish
 (978, 'J110', 'Misteri Cinta Kamar 313', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
 (979, 'J111', 'A Thousand Miles In Broken Slippers', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
 (980, 'J112', 'Hairless', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
-(981, 'J113', 'Sensei', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
+(981, 'J113', 'Sensei', NULL, 1, 1, 1, NULL, NULL, 1, 0, NULL, NULL, NULL, '2026-11-08 08:13:14'),
 (982, 'J114', 'The Lucy One', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
 (983, 'J115', 'Mr. Justice Raffles', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
 (984, 'J116', 'Surat Untuk Hera', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
@@ -1093,7 +1093,7 @@ INSERT INTO `books` (`id`, `kode_buku`, `judul`, `isbn`, `category_id`, `publish
 (996, 'J128', 'Garuda', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
 (997, 'J129', 'Kepada Gema', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
 (998, 'J130', 'Neraka Cermin', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
-(999, 'J131', 'Hello', NULL, 1, 1, 1, NULL, NULL, 1, 0, NULL, NULL, NULL, '2026-11-03 08:27:21'),
+(999, 'J131', 'Hello', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, '2026-11-07 09:32:20'),
 (1000, 'J132', 'The Destiny', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
 (1001, 'J133', 'The Gentleman Secret', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
 (1002, 'J134', 'Before It\'S Too Late', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
@@ -1142,7 +1142,7 @@ INSERT INTO `books` (`id`, `kode_buku`, `judul`, `isbn`, `category_id`, `publish
 (1044, 'J176', 'Anak Semua Bangsa', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
 (1045, 'J177', 'Jejak Langkah', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
 (1046, 'J178', 'Rumah Kaca', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
-(1047, 'J179', 'Sewu Dino', NULL, 1, 1, 1, NULL, NULL, 1, 0, NULL, NULL, NULL, '2026-10-30 08:30:32'),
+(1047, 'J179', 'Sewu Dino', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, '2026-11-08 08:18:58'),
 (1048, 'J180', 'Bulan', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
 (1049, 'J181', 'Laut Bercerita', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
 (1050, 'J182', 'Bintang', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
@@ -1172,7 +1172,7 @@ INSERT INTO `books` (`id`, `kode_buku`, `judul`, `isbn`, `category_id`, `publish
 (1074, 'J206', 'Kembara Rindu', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
 (1075, 'J207', 'Suluh Rindu', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
 (1076, 'J208', 'Negeri Para Bedebah', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
-(1077, 'J209', 'Negeri Di Ujung Tanduk', NULL, 1, 1, 1, NULL, NULL, 1, 0, NULL, NULL, NULL, '2026-11-02 07:57:28'),
+(1077, 'J209', 'Negeri Di Ujung Tanduk', NULL, 1, 1, 1, NULL, NULL, 1, 0, NULL, NULL, NULL, '2026-11-08 08:31:42'),
 (1078, 'J210', 'Bedebah Di Ujung Tanduk', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
 (1079, 'J211', 'Antar Kota Antar Perasaan', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
 (1080, 'J212', 'Tentang Kamu', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
@@ -1235,7 +1235,7 @@ INSERT INTO `books` (`id`, `kode_buku`, `judul`, `isbn`, `category_id`, `publish
 (1137, 'J269', 'Archipelagos Wizarding School In Nusantara', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
 (1138, 'J270', 'Archipelagos Wizarding School In Nusantara 2', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
 (1139, 'J271', 'Teruslah Bodoh Jangan Pintar', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
-(1140, 'J272', 'Rasa', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
+(1140, 'J272', 'Rasa', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, '2026-11-08 08:30:05'),
 (1141, 'J273', 'Best Time', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, NULL),
 (1142, 'J274', 'Cantik Itu Luka', NULL, 1, 1, 1, NULL, NULL, 1, 2, NULL, NULL, NULL, '2026-10-28 09:32:15'),
 (1143, 'J275', '3478 Mdpl', NULL, 1, 1, 1, NULL, NULL, 1, 1, NULL, NULL, NULL, '2026-11-03 08:23:35'),
@@ -1337,10 +1337,10 @@ INSERT INTO `books` (`id`, `kode_buku`, `judul`, `isbn`, `category_id`, `publish
 --
 
 CREATE TABLE `bukus` (
-  `id` bigint UNSIGNED NOT NULL,
-  `kode_buku` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nama_buku` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `kategori_id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `kode_buku` varchar(255) NOT NULL,
+  `nama_buku` varchar(255) NOT NULL,
+  `kategori_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2592,9 +2592,9 @@ INSERT INTO `bukus` (`id`, `kode_buku`, `nama_buku`, `kategori_id`, `created_at`
 --
 
 CREATE TABLE `cache` (
-  `key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `expiration` int NOT NULL
+  `key` varchar(255) NOT NULL,
+  `value` mediumtext NOT NULL,
+  `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -2602,8 +2602,8 @@ CREATE TABLE `cache` (
 --
 
 INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
-('laravel_cache_5c785c036466adea360111aa28563bfd556b5fba', 'i:1;', 1793978101),
-('laravel_cache_5c785c036466adea360111aa28563bfd556b5fba:timer', 'i:1793978101;', 1793978101);
+('laravel_cache_5c785c036466adea360111aa28563bfd556b5fba', 'i:2;', 1794150730),
+('laravel_cache_5c785c036466adea360111aa28563bfd556b5fba:timer', 'i:1794150730;', 1794150730);
 
 -- --------------------------------------------------------
 
@@ -2612,9 +2612,9 @@ INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
 --
 
 CREATE TABLE `cache_locks` (
-  `key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `owner` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `expiration` int NOT NULL
+  `key` varchar(255) NOT NULL,
+  `owner` varchar(255) NOT NULL,
+  `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -2624,8 +2624,8 @@ CREATE TABLE `cache_locks` (
 --
 
 CREATE TABLE `carts` (
-  `id` bigint UNSIGNED NOT NULL,
-  `user_id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2637,10 +2637,10 @@ CREATE TABLE `carts` (
 --
 
 CREATE TABLE `cart_items` (
-  `id` bigint UNSIGNED NOT NULL,
-  `cart_id` bigint UNSIGNED NOT NULL,
-  `book_id` bigint UNSIGNED NOT NULL,
-  `jumlah` int NOT NULL DEFAULT '1',
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `cart_id` bigint(20) UNSIGNED NOT NULL,
+  `book_id` bigint(20) UNSIGNED NOT NULL,
+  `jumlah` int(11) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2652,10 +2652,10 @@ CREATE TABLE `cart_items` (
 --
 
 CREATE TABLE `categories` (
-  `id` bigint UNSIGNED NOT NULL,
-  `kode_kategori` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nama_kategori` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `deskripsi` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `kode_kategori` varchar(255) NOT NULL,
+  `nama_kategori` varchar(255) NOT NULL,
+  `deskripsi` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2685,13 +2685,13 @@ INSERT INTO `categories` (`id`, `kode_kategori`, `nama_kategori`, `deskripsi`, `
 --
 
 CREATE TABLE `failed_jobs` (
-  `id` bigint UNSIGNED NOT NULL,
-  `uuid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `uuid` varchar(255) NOT NULL,
+  `connection` text NOT NULL,
+  `queue` text NOT NULL,
+  `payload` longtext NOT NULL,
+  `exception` longtext NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -2701,13 +2701,13 @@ CREATE TABLE `failed_jobs` (
 --
 
 CREATE TABLE `fines` (
-  `id` bigint UNSIGNED NOT NULL,
-  `kode_denda` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `member_id` bigint UNSIGNED NOT NULL,
-  `loan_id` bigint UNSIGNED DEFAULT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `kode_denda` varchar(255) NOT NULL,
+  `member_id` bigint(20) UNSIGNED NOT NULL,
+  `loan_id` bigint(20) UNSIGNED DEFAULT NULL,
   `jumlah` decimal(10,2) NOT NULL,
-  `keterangan` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` enum('belum_bayar','lunas') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'belum_bayar',
+  `keterangan` text NOT NULL,
+  `status` enum('belum_bayar','lunas') NOT NULL DEFAULT 'belum_bayar',
   `tanggal_bayar` date DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -2718,14 +2718,16 @@ CREATE TABLE `fines` (
 --
 
 INSERT INTO `fines` (`id`, `kode_denda`, `member_id`, `loan_id`, `jumlah`, `keterangan`, `status`, `tanggal_bayar`, `created_at`, `updated_at`) VALUES
-(1, 'DND-000113', 13, 11, '2000.00', 'Denda warisan data lama - peminjaman #113 (status lama: dikembalikan)', 'lunas', '2026-11-01', '2026-09-27 08:27:43', '2026-11-01 08:27:32'),
-(2, 'DND-000115', 28, 13, '4000.00', 'Denda warisan data lama - peminjaman #115 (status lama: dikembalikan)', 'lunas', '2026-10-23', '2026-09-29 08:28:52', '2026-10-23 06:51:32'),
-(4, 'DND-001', 79, 35, '5000.00', 'Terlambat mengembalikan buku Bumi Manusia.', 'lunas', '2026-07-22', '2026-07-26 23:03:15', '2026-07-26 23:03:15'),
-(5, 'DND-002', 77, 33, '15000.00', 'Terlambat mengembalikan buku Laskar Pelangi.', 'belum_bayar', NULL, '2026-07-26 23:03:15', '2026-07-26 23:03:15'),
-(9, 'DND-5OKRLZO0', 63, 31, '0.00', 'Denda keterlambatan pengembalian 2 hari (Kode: PJ-000133)', 'lunas', '2026-11-01', '2026-10-26 08:17:44', '2026-11-01 08:27:00'),
-(10, 'DND-NO0EIXMW', 70, 23, '34000.00', 'Denda keterlambatan pengembalian 17 hari (Kode: PJ-000125)', 'lunas', '2026-10-28', '2026-10-28 09:32:15', '2026-10-28 09:32:43'),
-(11, 'DND-LOOODRHC', 44, 30, '10000.00', 'Denda keterlambatan pengembalian 5 hari (Kode: PJ-000132)', 'lunas', '2026-10-28', '2026-10-28 09:32:29', '2026-10-28 10:03:02'),
-(14, 'DND-EH3CTWEG', 59, 43, '2000.00', 'Denda keterlambatan pengembalian 1 hari (Kode: PJN-KHIV0MAU)', 'belum_bayar', NULL, '2026-11-06 08:19:50', '2026-11-06 08:19:50');
+(1, 'DND-000113', 13, 11, 2000.00, 'Denda warisan data lama - peminjaman #113 (status lama: dikembalikan)', 'lunas', '2026-11-01', '2026-09-27 08:27:43', '2026-11-01 08:27:32'),
+(2, 'DND-000115', 28, 13, 4000.00, 'Denda warisan data lama - peminjaman #115 (status lama: dikembalikan)', 'lunas', '2026-10-23', '2026-09-29 08:28:52', '2026-10-23 06:51:32'),
+(4, 'DND-001', 79, 35, 5000.00, 'Terlambat mengembalikan buku Bumi Manusia.', 'lunas', '2026-07-22', '2026-07-26 23:03:15', '2026-07-26 23:03:15'),
+(5, 'DND-002', 77, 33, 15000.00, 'Terlambat mengembalikan buku Laskar Pelangi.', 'belum_bayar', NULL, '2026-07-26 23:03:15', '2026-07-26 23:03:15'),
+(9, 'DND-5OKRLZO0', 63, 31, 0.00, 'Denda keterlambatan pengembalian 2 hari (Kode: PJ-000133)', 'lunas', '2026-11-01', '2026-10-26 08:17:44', '2026-11-01 08:27:00'),
+(10, 'DND-NO0EIXMW', 70, 23, 34000.00, 'Denda keterlambatan pengembalian 17 hari (Kode: PJ-000125)', 'lunas', '2026-10-28', '2026-10-28 09:32:15', '2026-10-28 09:32:43'),
+(11, 'DND-LOOODRHC', 44, 30, 10000.00, 'Denda keterlambatan pengembalian 5 hari (Kode: PJ-000132)', 'lunas', '2026-10-28', '2026-10-28 09:32:29', '2026-10-28 10:03:02'),
+(14, 'DND-EH3CTWEG', 59, 43, 2000.00, 'Denda keterlambatan pengembalian 1 hari (Kode: PJN-KHIV0MAU)', 'belum_bayar', NULL, '2026-11-06 08:19:50', '2026-11-06 08:19:50'),
+(15, 'DND-4RBFPNXU', 72, 45, 2000.00, 'Denda keterlambatan pengembalian 1 hari (Kode: PJN-WOHAF0SV)', 'lunas', '2026-11-08', '2026-11-08 08:14:46', '2026-11-08 08:24:24'),
+(16, 'DND-DDOPKSK4', 17, 40, 8000.00, 'Denda keterlambatan pengembalian 4 hari (Kode: PJN-EVIJKNXW)', 'lunas', '2026-11-08', '2026-11-08 08:18:58', '2026-11-08 08:24:20');
 
 -- --------------------------------------------------------
 
@@ -2734,14 +2736,14 @@ INSERT INTO `fines` (`id`, `kode_denda`, `member_id`, `loan_id`, `jumlah`, `kete
 --
 
 CREATE TABLE `fine_histories` (
-  `id` bigint UNSIGNED NOT NULL,
-  `fine_id` bigint UNSIGNED NOT NULL,
-  `user_id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `fine_id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
   `jumlah_sebelum` decimal(10,2) NOT NULL,
   `jumlah_sesudah` decimal(10,2) NOT NULL,
-  `status_sebelum` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status_sesudah` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `catatan` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `status_sebelum` varchar(255) NOT NULL,
+  `status_sesudah` varchar(255) NOT NULL,
+  `catatan` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2751,11 +2753,13 @@ CREATE TABLE `fine_histories` (
 --
 
 INSERT INTO `fine_histories` (`id`, `fine_id`, `user_id`, `jumlah_sebelum`, `jumlah_sesudah`, `status_sebelum`, `status_sesudah`, `catatan`, `created_at`, `updated_at`) VALUES
-(4, 10, 19, '35378.13', '35378.13', 'belum_bayar', 'lunas', 'Pembayaran denda dilunasi oleh petugas.', '2026-10-28 09:32:43', '2026-10-28 09:32:43'),
-(5, 11, 19, '11378.47', '11378.47', 'belum_bayar', 'lunas', 'Pembayaran denda dilunasi oleh petugas.', '2026-10-28 10:03:02', '2026-10-28 10:03:02'),
-(6, 9, 18, '5274.64', '0.00', 'belum_bayar', 'lunas', 'kesalahan tanggal yang di lakukan pengurus', '2026-11-01 08:26:59', '2026-11-01 08:26:59'),
-(7, 9, 18, '0.00', '0.00', 'lunas', 'lunas', 'kesalahan tanggal yang di lakukan pengurus', '2026-11-01 08:27:00', '2026-11-01 08:27:00'),
-(8, 1, 18, '2000.00', '2000.00', 'belum_bayar', 'lunas', 'Pembayaran denda dilunasi oleh petugas.', '2026-11-01 08:27:32', '2026-11-01 08:27:32');
+(4, 10, 19, 35378.13, 35378.13, 'belum_bayar', 'lunas', 'Pembayaran denda dilunasi oleh petugas.', '2026-10-28 09:32:43', '2026-10-28 09:32:43'),
+(5, 11, 19, 11378.47, 11378.47, 'belum_bayar', 'lunas', 'Pembayaran denda dilunasi oleh petugas.', '2026-10-28 10:03:02', '2026-10-28 10:03:02'),
+(6, 9, 18, 5274.64, 0.00, 'belum_bayar', 'lunas', 'kesalahan tanggal yang di lakukan pengurus', '2026-11-01 08:26:59', '2026-11-01 08:26:59'),
+(7, 9, 18, 0.00, 0.00, 'lunas', 'lunas', 'kesalahan tanggal yang di lakukan pengurus', '2026-11-01 08:27:00', '2026-11-01 08:27:00'),
+(8, 1, 18, 2000.00, 2000.00, 'belum_bayar', 'lunas', 'Pembayaran denda dilunasi oleh petugas.', '2026-11-01 08:27:32', '2026-11-01 08:27:32'),
+(11, 16, 18, 8000.00, 8000.00, 'belum_bayar', 'lunas', 'Pembayaran denda dilunasi oleh petugas.', '2026-11-08 08:24:20', '2026-11-08 08:24:20'),
+(12, 15, 18, 2000.00, 2000.00, 'belum_bayar', 'lunas', 'Pembayaran denda dilunasi oleh petugas.', '2026-11-08 08:24:24', '2026-11-08 08:24:24');
 
 -- --------------------------------------------------------
 
@@ -2764,13 +2768,13 @@ INSERT INTO `fine_histories` (`id`, `fine_id`, `user_id`, `jumlah_sebelum`, `jum
 --
 
 CREATE TABLE `jobs` (
-  `id` bigint UNSIGNED NOT NULL,
-  `queue` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `attempts` tinyint UNSIGNED NOT NULL,
-  `reserved_at` int UNSIGNED DEFAULT NULL,
-  `available_at` int UNSIGNED NOT NULL,
-  `created_at` int UNSIGNED NOT NULL
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `queue` varchar(255) NOT NULL,
+  `payload` longtext NOT NULL,
+  `attempts` tinyint(3) UNSIGNED NOT NULL,
+  `reserved_at` int(10) UNSIGNED DEFAULT NULL,
+  `available_at` int(10) UNSIGNED NOT NULL,
+  `created_at` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -2780,16 +2784,16 @@ CREATE TABLE `jobs` (
 --
 
 CREATE TABLE `job_batches` (
-  `id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `total_jobs` int NOT NULL,
-  `pending_jobs` int NOT NULL,
-  `failed_jobs` int NOT NULL,
-  `failed_job_ids` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `options` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `cancelled_at` int DEFAULT NULL,
-  `created_at` int NOT NULL,
-  `finished_at` int DEFAULT NULL
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `total_jobs` int(11) NOT NULL,
+  `pending_jobs` int(11) NOT NULL,
+  `failed_jobs` int(11) NOT NULL,
+  `failed_job_ids` longtext NOT NULL,
+  `options` mediumtext DEFAULT NULL,
+  `cancelled_at` int(11) DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `finished_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -2799,11 +2803,11 @@ CREATE TABLE `job_batches` (
 --
 
 CREATE TABLE `kategori` (
-  `id` bigint NOT NULL,
+  `id` bigint(20) NOT NULL,
   `nama_kategori` varchar(100) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `kategori`
@@ -2821,8 +2825,8 @@ INSERT INTO `kategori` (`id`, `nama_kategori`, `created_at`, `updated_at`) VALUE
 --
 
 CREATE TABLE `kategoris` (
-  `id` bigint UNSIGNED NOT NULL,
-  `nama_kategori` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `nama_kategori` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -2852,13 +2856,13 @@ INSERT INTO `kategoris` (`id`, `nama_kategori`, `created_at`, `updated_at`) VALU
 --
 
 CREATE TABLE `lama_books` (
-  `id` bigint NOT NULL,
+  `id` bigint(20) NOT NULL,
   `kode_buku` varchar(50) NOT NULL,
   `nama_buku` varchar(255) NOT NULL,
-  `kategori_id` bigint NOT NULL,
+  `kategori_id` bigint(20) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `lama_books`
@@ -2876,9 +2880,9 @@ INSERT INTO `lama_books` (`id`, `kode_buku`, `nama_buku`, `kategori_id`, `create
 --
 
 CREATE TABLE `lama_cache` (
-  `key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `expiration` int NOT NULL
+  `key` varchar(255) NOT NULL,
+  `value` mediumtext NOT NULL,
+  `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -2888,9 +2892,9 @@ CREATE TABLE `lama_cache` (
 --
 
 CREATE TABLE `lama_cache_locks` (
-  `key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `owner` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `expiration` int NOT NULL
+  `key` varchar(255) NOT NULL,
+  `owner` varchar(255) NOT NULL,
+  `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -2900,13 +2904,13 @@ CREATE TABLE `lama_cache_locks` (
 --
 
 CREATE TABLE `lama_failed_jobs` (
-  `id` bigint UNSIGNED NOT NULL,
-  `uuid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `connection` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `queue` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `exception` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `uuid` varchar(255) NOT NULL,
+  `connection` text NOT NULL,
+  `queue` text NOT NULL,
+  `payload` longtext NOT NULL,
+  `exception` longtext NOT NULL,
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -2916,13 +2920,13 @@ CREATE TABLE `lama_failed_jobs` (
 --
 
 CREATE TABLE `lama_jobs` (
-  `id` bigint UNSIGNED NOT NULL,
-  `queue` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `attempts` tinyint UNSIGNED NOT NULL,
-  `reserved_at` int UNSIGNED DEFAULT NULL,
-  `available_at` int UNSIGNED NOT NULL,
-  `created_at` int UNSIGNED NOT NULL
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `queue` varchar(255) NOT NULL,
+  `payload` longtext NOT NULL,
+  `attempts` tinyint(3) UNSIGNED NOT NULL,
+  `reserved_at` int(10) UNSIGNED DEFAULT NULL,
+  `available_at` int(10) UNSIGNED NOT NULL,
+  `created_at` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -2932,16 +2936,16 @@ CREATE TABLE `lama_jobs` (
 --
 
 CREATE TABLE `lama_job_batches` (
-  `id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `total_jobs` int NOT NULL,
-  `pending_jobs` int NOT NULL,
-  `failed_jobs` int NOT NULL,
-  `failed_job_ids` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `options` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `cancelled_at` int DEFAULT NULL,
-  `created_at` int NOT NULL,
-  `finished_at` int DEFAULT NULL
+  `id` varchar(255) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `total_jobs` int(11) NOT NULL,
+  `pending_jobs` int(11) NOT NULL,
+  `failed_jobs` int(11) NOT NULL,
+  `failed_job_ids` longtext NOT NULL,
+  `options` mediumtext DEFAULT NULL,
+  `cancelled_at` int(11) DEFAULT NULL,
+  `created_at` int(11) NOT NULL,
+  `finished_at` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -2951,9 +2955,9 @@ CREATE TABLE `lama_job_batches` (
 --
 
 CREATE TABLE `lama_migrations` (
-  `id` int UNSIGNED NOT NULL,
-  `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int NOT NULL
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(255) NOT NULL,
+  `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -2976,8 +2980,8 @@ INSERT INTO `lama_migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `lama_password_reset_tokens` (
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -2988,12 +2992,12 @@ CREATE TABLE `lama_password_reset_tokens` (
 --
 
 CREATE TABLE `lama_sessions` (
-  `id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_id` bigint UNSIGNED DEFAULT NULL,
-  `ip_address` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_agent` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `last_activity` int NOT NULL
+  `id` varchar(255) NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `ip_address` varchar(45) DEFAULT NULL,
+  `user_agent` text DEFAULT NULL,
+  `payload` longtext NOT NULL,
+  `last_activity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -3018,12 +3022,12 @@ INSERT INTO `lama_sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `paylo
 --
 
 CREATE TABLE `lama_users` (
-  `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
+  `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -3043,21 +3047,21 @@ INSERT INTO `lama_users` (`id`, `name`, `email`, `email_verified_at`, `password`
 --
 
 CREATE TABLE `loans` (
-  `id` bigint UNSIGNED NOT NULL,
-  `kode_pinjam` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `member_id` bigint UNSIGNED NOT NULL,
-  `user_id` bigint UNSIGNED DEFAULT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `kode_pinjam` varchar(255) NOT NULL,
+  `member_id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
   `tanggal_pinjam` date NOT NULL,
   `tanggal_kembali` date NOT NULL,
   `tanggal_dikembalikan` date DEFAULT NULL,
-  `status` enum('pending','dipinjam','dikembalikan','terlambat','rejected') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'pending',
-  `source` enum('petugas','anggota') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'petugas',
-  `catatan` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `status` enum('pending','dipinjam','dikembalikan','terlambat','rejected') NOT NULL DEFAULT 'pending',
+  `source` enum('petugas','anggota') NOT NULL DEFAULT 'petugas',
+  `catatan` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `approved_by` bigint UNSIGNED DEFAULT NULL,
+  `approved_by` bigint(20) UNSIGNED DEFAULT NULL,
   `approved_at` timestamp NULL DEFAULT NULL,
-  `rejected_reason` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `rejected_reason` text DEFAULT NULL,
   `rejected_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -3105,15 +3109,18 @@ INSERT INTO `loans` (`id`, `kode_pinjam`, `member_id`, `user_id`, `tanggal_pinja
 (37, 'PJN-GWKCR0OP', 85, 19, '2026-10-29', '2026-11-03', '2026-11-03', 'dikembalikan', 'petugas', NULL, '2026-10-29 07:45:38', '2026-11-03 08:23:35', NULL, NULL, NULL, NULL),
 (38, 'PJN-LTUY8T23', 86, 18, '2026-10-29', '2026-11-03', '2026-11-01', 'dikembalikan', 'petugas', NULL, '2026-10-29 07:48:13', '2026-11-01 08:13:34', NULL, NULL, NULL, NULL),
 (39, 'PJN-CXKWE4CF', 28, 19, '2026-10-29', '2026-11-03', '2026-11-03', 'dikembalikan', 'petugas', NULL, '2026-10-29 08:03:12', '2026-11-03 08:26:10', NULL, NULL, NULL, NULL),
-(40, 'PJN-EVIJKNXW', 17, 18, '2026-10-30', '2026-11-04', NULL, 'dipinjam', 'petugas', NULL, '2026-10-30 08:30:32', '2026-10-30 08:30:32', NULL, NULL, NULL, NULL),
+(40, 'PJN-EVIJKNXW', 17, 18, '2026-10-30', '2026-11-04', '2026-11-08', 'dikembalikan', 'petugas', NULL, '2026-10-30 08:30:32', '2026-11-08 08:18:58', NULL, NULL, NULL, NULL),
 (41, 'PJN-PXJC99WP', 87, 18, '2026-10-31', '2026-11-05', '2026-11-03', 'dikembalikan', 'petugas', NULL, '2026-10-31 08:13:20', '2026-11-03 08:18:50', NULL, NULL, NULL, NULL),
 (42, 'PJN-NXWV6MCV', 50, 18, '2026-10-31', '2026-11-05', '2026-11-04', 'dikembalikan', 'petugas', NULL, '2026-10-31 08:16:35', '2026-11-04 08:11:08', NULL, NULL, NULL, NULL),
 (43, 'PJN-KHIV0MAU', 59, 18, '2026-10-31', '2026-11-05', '2026-11-06', 'dikembalikan', 'petugas', NULL, '2026-10-31 08:30:41', '2026-11-06 08:19:50', NULL, NULL, NULL, NULL),
 (44, 'PJN-PDRYYGIC', 86, 18, '2026-11-01', '2026-11-06', '2026-11-04', 'dikembalikan', 'petugas', NULL, '2026-11-01 08:15:33', '2026-11-04 08:12:31', NULL, NULL, NULL, NULL),
-(45, 'PJN-WOHAF0SV', 72, 18, '2026-11-02', '2026-11-07', NULL, 'dipinjam', 'petugas', NULL, '2026-11-02 07:57:28', '2026-11-02 07:57:28', NULL, NULL, NULL, NULL),
+(45, 'PJN-WOHAF0SV', 72, 18, '2026-11-02', '2026-11-07', '2026-11-08', 'dikembalikan', 'petugas', NULL, '2026-11-02 07:57:28', '2026-11-08 08:14:46', NULL, NULL, NULL, NULL),
 (46, 'PJN-KLPY5ZPU', 88, 18, '2026-11-02', '2026-11-07', NULL, 'dipinjam', 'petugas', NULL, '2026-11-02 07:58:05', '2026-11-02 07:58:05', NULL, NULL, NULL, NULL),
-(47, 'PJN-CEZJCHJB', 85, 18, '2026-11-03', '2026-11-08', NULL, 'dipinjam', 'petugas', NULL, '2026-11-03 08:25:47', '2026-11-03 08:25:47', NULL, NULL, NULL, NULL),
-(48, 'PJN-VVJIZYGV', 66, 18, '2026-11-03', '2026-11-08', NULL, 'dipinjam', 'petugas', NULL, '2026-11-03 08:27:20', '2026-11-03 08:27:20', NULL, NULL, NULL, NULL);
+(47, 'PJN-CEZJCHJB', 85, 18, '2026-11-03', '2026-11-08', '2026-11-07', 'dikembalikan', 'petugas', NULL, '2026-11-03 08:25:47', '2026-11-07 09:32:28', NULL, NULL, NULL, NULL),
+(48, 'PJN-VVJIZYGV', 66, 18, '2026-11-03', '2026-11-08', '2026-11-07', 'dikembalikan', 'petugas', NULL, '2026-11-03 08:27:20', '2026-11-07 09:32:20', NULL, NULL, NULL, NULL),
+(49, 'PJN-HK8PWLYM', 66, 18, '2026-11-07', '2026-11-12', '2026-11-08', 'dikembalikan', 'petugas', NULL, '2026-11-07 09:32:44', '2026-11-08 08:30:05', NULL, NULL, NULL, NULL),
+(50, 'PJN-XJWDQO9W', 86, 18, '2026-11-08', '2026-11-13', NULL, 'dipinjam', 'petugas', NULL, '2026-11-08 08:13:14', '2026-11-08 08:13:14', NULL, NULL, NULL, NULL),
+(51, 'PJN-D8FQY5IL', 13, 18, '2026-11-08', '2026-11-13', NULL, 'dipinjam', 'petugas', NULL, '2026-11-08 08:31:42', '2026-11-08 08:31:42', NULL, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -3122,11 +3129,11 @@ INSERT INTO `loans` (`id`, `kode_pinjam`, `member_id`, `user_id`, `tanggal_pinja
 --
 
 CREATE TABLE `loan_details` (
-  `id` bigint UNSIGNED NOT NULL,
-  `loan_id` bigint UNSIGNED NOT NULL,
-  `book_id` bigint UNSIGNED NOT NULL,
-  `jumlah` int NOT NULL DEFAULT '1',
-  `kondisi` enum('baik','rusak','hilang') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'baik',
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `loan_id` bigint(20) UNSIGNED NOT NULL,
+  `book_id` bigint(20) UNSIGNED NOT NULL,
+  `jumlah` int(11) NOT NULL DEFAULT 1,
+  `kondisi` enum('baik','rusak','hilang') NOT NULL DEFAULT 'baik',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -3180,7 +3187,10 @@ INSERT INTO `loan_details` (`id`, `loan_id`, `book_id`, `jumlah`, `kondisi`, `cr
 (44, 45, 1077, 1, 'baik', '2026-11-02 07:57:28', '2026-11-02 07:57:28'),
 (45, 46, 628, 1, 'baik', '2026-11-02 07:58:05', '2026-11-02 07:58:05'),
 (46, 47, 964, 1, 'baik', '2026-11-03 08:25:47', '2026-11-03 08:25:47'),
-(47, 48, 999, 1, 'baik', '2026-11-03 08:27:21', '2026-11-03 08:27:21');
+(47, 48, 999, 1, 'baik', '2026-11-03 08:27:21', '2026-11-03 08:27:21'),
+(48, 49, 1140, 1, 'baik', '2026-11-07 09:32:44', '2026-11-07 09:32:44'),
+(49, 50, 981, 1, 'baik', '2026-11-08 08:13:14', '2026-11-08 08:13:14'),
+(50, 51, 1077, 1, 'baik', '2026-11-08 08:31:42', '2026-11-08 08:31:42');
 
 -- --------------------------------------------------------
 
@@ -3189,20 +3199,20 @@ INSERT INTO `loan_details` (`id`, `loan_id`, `book_id`, `jumlah`, `kondisi`, `cr
 --
 
 CREATE TABLE `members` (
-  `id` bigint UNSIGNED NOT NULL,
-  `kode_member` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nama` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nis_nip` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `jenis_kelamin` enum('L','P') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `alamat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `telepon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `kode_member` varchar(255) NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `nis_nip` varchar(255) DEFAULT NULL,
+  `jenis_kelamin` enum('L','P') NOT NULL,
+  `alamat` varchar(255) NOT NULL,
+  `telepon` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
   `tanggal_daftar` date NOT NULL,
-  `status` enum('aktif','nonaktif') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'aktif',
+  `status` enum('aktif','nonaktif') NOT NULL DEFAULT 'aktif',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL
+  `remember_token` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -3299,9 +3309,9 @@ INSERT INTO `members` (`id`, `kode_member`, `nama`, `nis_nip`, `jenis_kelamin`, 
 --
 
 CREATE TABLE `migrations` (
-  `id` int UNSIGNED NOT NULL,
-  `migration` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `batch` int NOT NULL
+  `id` int(10) UNSIGNED NOT NULL,
+  `migration` varchar(255) NOT NULL,
+  `batch` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -3346,8 +3356,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 --
 
 CREATE TABLE `password_reset_tokens` (
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `token` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `token` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -3358,13 +3368,13 @@ CREATE TABLE `password_reset_tokens` (
 --
 
 CREATE TABLE `peminjam` (
-  `id` bigint NOT NULL,
+  `id` bigint(20) NOT NULL,
   `nama` varchar(255) NOT NULL,
   `alamat` text NOT NULL,
   `sekolah` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `peminjam`
@@ -3381,16 +3391,16 @@ INSERT INTO `peminjam` (`id`, `nama`, `alamat`, `sekolah`, `created_at`, `update
 --
 
 CREATE TABLE `peminjaman` (
-  `id` bigint NOT NULL,
-  `peminjam_id` bigint NOT NULL,
-  `book_id` bigint NOT NULL,
-  `petugas_id` bigint NOT NULL,
+  `id` bigint(20) NOT NULL,
+  `peminjam_id` bigint(20) NOT NULL,
+  `book_id` bigint(20) NOT NULL,
+  `petugas_id` bigint(20) NOT NULL,
   `tanggal_pinjam` date NOT NULL,
   `tanggal_jatuh_tempo` date NOT NULL,
   `status` enum('dipinjam','dikembalikan') DEFAULT 'dipinjam',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `peminjaman`
@@ -3406,14 +3416,14 @@ INSERT INTO `peminjaman` (`id`, `peminjam_id`, `book_id`, `petugas_id`, `tanggal
 --
 
 CREATE TABLE `peminjamans` (
-  `id` bigint UNSIGNED NOT NULL,
-  `buku_id` bigint UNSIGNED NOT NULL,
-  `peminjam_id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `buku_id` bigint(20) UNSIGNED NOT NULL,
+  `peminjam_id` bigint(20) UNSIGNED NOT NULL,
   `tanggal_pinjam` date NOT NULL,
   `tanggal_jatuh_tempo` date NOT NULL,
   `tanggal_kembali` date DEFAULT NULL,
-  `status` enum('dipinjam','dikembalikan') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'dipinjam',
-  `denda` int NOT NULL DEFAULT '0',
+  `status` enum('dipinjam','dikembalikan') NOT NULL DEFAULT 'dipinjam',
+  `denda` int(11) NOT NULL DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -3463,10 +3473,10 @@ INSERT INTO `peminjamans` (`id`, `buku_id`, `peminjam_id`, `tanggal_pinjam`, `ta
 --
 
 CREATE TABLE `peminjams` (
-  `id` bigint UNSIGNED NOT NULL,
-  `nama` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `alamat` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `sekolah` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `alamat` text NOT NULL,
+  `sekolah` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -3556,14 +3566,14 @@ INSERT INTO `peminjams` (`id`, `nama`, `alamat`, `sekolah`, `created_at`, `updat
 --
 
 CREATE TABLE `pengembalian` (
-  `id` bigint NOT NULL,
-  `peminjaman_id` bigint NOT NULL,
+  `id` bigint(20) NOT NULL,
+  `peminjaman_id` bigint(20) NOT NULL,
   `tanggal_dikembalikan` date NOT NULL,
-  `terlambat_hari` int DEFAULT '0',
-  `denda` decimal(10,2) DEFAULT '0.00',
+  `terlambat_hari` int(11) DEFAULT 0,
+  `denda` decimal(10,2) DEFAULT 0.00,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -3572,13 +3582,13 @@ CREATE TABLE `pengembalian` (
 --
 
 CREATE TABLE `petugas` (
-  `id` bigint NOT NULL,
+  `id` bigint(20) NOT NULL,
   `nama` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `petugas`
@@ -3594,12 +3604,12 @@ INSERT INTO `petugas` (`id`, `nama`, `email`, `password`, `created_at`, `updated
 --
 
 CREATE TABLE `publishers` (
-  `id` bigint UNSIGNED NOT NULL,
-  `kode_penerbit` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nama_penerbit` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `alamat` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `telepon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `kode_penerbit` varchar(255) NOT NULL,
+  `nama_penerbit` varchar(255) NOT NULL,
+  `alamat` varchar(255) DEFAULT NULL,
+  `telepon` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -3620,14 +3630,14 @@ INSERT INTO `publishers` (`id`, `kode_penerbit`, `nama_penerbit`, `alamat`, `tel
 --
 
 CREATE TABLE `returns` (
-  `id` bigint UNSIGNED NOT NULL,
-  `kode_kembali` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `loan_id` bigint UNSIGNED NOT NULL,
-  `user_id` bigint UNSIGNED NOT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `kode_kembali` varchar(255) NOT NULL,
+  `loan_id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
   `tanggal_kembali` date NOT NULL,
-  `terlambat_hari` int NOT NULL DEFAULT '0',
-  `denda` decimal(10,2) NOT NULL DEFAULT '0.00',
-  `catatan` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `terlambat_hari` int(11) NOT NULL DEFAULT 0,
+  `denda` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `catatan` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -3637,19 +3647,24 @@ CREATE TABLE `returns` (
 --
 
 INSERT INTO `returns` (`id`, `kode_kembali`, `loan_id`, `user_id`, `tanggal_kembali`, `terlambat_hari`, `denda`, `catatan`, `created_at`, `updated_at`) VALUES
-(1, 'KBL-LEKOD6WM', 29, 18, '2026-10-23', 0, '0.00', NULL, '2026-10-23 08:06:17', '2026-10-23 08:06:17'),
-(2, 'KBL-CJB07VKR', 28, 18, '2026-10-23', 0, '0.00', NULL, '2026-10-23 08:06:42', '2026-10-23 08:06:42'),
-(3, 'KBL-HTQC2M1F', 31, 19, '2026-10-26', 2, '4000.00', 'ini inputnya terlambat. jadinya telat!!!. mangkanah jek elang meloloh cong', '2026-10-26 08:17:44', '2026-10-26 08:17:44'),
-(4, 'KBL-GMUI4VHC', 36, 19, '2026-10-28', 0, '0.00', NULL, '2026-10-28 08:11:49', '2026-10-28 08:11:49'),
-(5, 'KBL-E6VJFAUQ', 23, 19, '2026-10-28', 17, '34000.00', NULL, '2026-10-28 09:32:15', '2026-10-28 09:32:15'),
-(6, 'KBL-U0SWHQ2L', 30, 19, '2026-10-28', 5, '10000.00', NULL, '2026-10-28 09:32:29', '2026-10-28 09:32:29'),
-(7, 'KBL-SRFRM6KM', 38, 18, '2026-11-01', 0, '0.00', NULL, '2026-11-01 08:13:34', '2026-11-01 08:13:34'),
-(8, 'KBL-6YSJ6F3E', 41, 18, '2026-11-03', 0, '0.00', 'aman', '2026-11-03 08:18:51', '2026-11-03 08:18:51'),
-(9, 'KBL-QWWTIKIO', 37, 18, '2026-11-03', 0, '0.00', NULL, '2026-11-03 08:23:35', '2026-11-03 08:23:35'),
-(10, 'KBL-OCRFY7U9', 39, 18, '2026-11-03', 0, '0.00', NULL, '2026-11-03 08:26:10', '2026-11-03 08:26:10'),
-(11, 'KBL-DZWZULFX', 42, 18, '2026-11-04', 0, '0.00', NULL, '2026-11-04 08:11:08', '2026-11-04 08:11:08'),
-(12, 'KBL-X3DHGT6T', 44, 18, '2026-11-04', 0, '0.00', NULL, '2026-11-04 08:12:31', '2026-11-04 08:12:31'),
-(13, 'KBL-CWAX2NOI', 43, 18, '2026-11-06', 1, '2000.00', 'kemarin malam pembukaan harlah', '2026-11-06 08:19:50', '2026-11-06 08:19:50');
+(1, 'KBL-LEKOD6WM', 29, 18, '2026-10-23', 0, 0.00, NULL, '2026-10-23 08:06:17', '2026-10-23 08:06:17'),
+(2, 'KBL-CJB07VKR', 28, 18, '2026-10-23', 0, 0.00, NULL, '2026-10-23 08:06:42', '2026-10-23 08:06:42'),
+(3, 'KBL-HTQC2M1F', 31, 19, '2026-10-26', 2, 4000.00, 'ini inputnya terlambat. jadinya telat!!!. mangkanah jek elang meloloh cong', '2026-10-26 08:17:44', '2026-10-26 08:17:44'),
+(4, 'KBL-GMUI4VHC', 36, 19, '2026-10-28', 0, 0.00, NULL, '2026-10-28 08:11:49', '2026-10-28 08:11:49'),
+(5, 'KBL-E6VJFAUQ', 23, 19, '2026-10-28', 17, 34000.00, NULL, '2026-10-28 09:32:15', '2026-10-28 09:32:15'),
+(6, 'KBL-U0SWHQ2L', 30, 19, '2026-10-28', 5, 10000.00, NULL, '2026-10-28 09:32:29', '2026-10-28 09:32:29'),
+(7, 'KBL-SRFRM6KM', 38, 18, '2026-11-01', 0, 0.00, NULL, '2026-11-01 08:13:34', '2026-11-01 08:13:34'),
+(8, 'KBL-6YSJ6F3E', 41, 18, '2026-11-03', 0, 0.00, 'aman', '2026-11-03 08:18:51', '2026-11-03 08:18:51'),
+(9, 'KBL-QWWTIKIO', 37, 18, '2026-11-03', 0, 0.00, NULL, '2026-11-03 08:23:35', '2026-11-03 08:23:35'),
+(10, 'KBL-OCRFY7U9', 39, 18, '2026-11-03', 0, 0.00, NULL, '2026-11-03 08:26:10', '2026-11-03 08:26:10'),
+(11, 'KBL-DZWZULFX', 42, 18, '2026-11-04', 0, 0.00, NULL, '2026-11-04 08:11:08', '2026-11-04 08:11:08'),
+(12, 'KBL-X3DHGT6T', 44, 18, '2026-11-04', 0, 0.00, NULL, '2026-11-04 08:12:31', '2026-11-04 08:12:31'),
+(13, 'KBL-CWAX2NOI', 43, 18, '2026-11-06', 1, 2000.00, 'kemarin malam pembukaan harlah', '2026-11-06 08:19:50', '2026-11-06 08:19:50'),
+(14, 'KBL-ZF5CLNGR', 48, 18, '2026-11-07', 0, 0.00, 'Aman', '2026-11-07 09:32:20', '2026-11-07 09:32:20'),
+(15, 'KBL-SPI68NCR', 47, 18, '2026-11-07', 0, 0.00, 'Aman', '2026-11-07 09:32:28', '2026-11-07 09:32:28'),
+(16, 'KBL-BJTQY24C', 45, 18, '2026-11-08', 1, 2000.00, 'Sudah selesai dendanya', '2026-11-08 08:14:46', '2026-11-08 08:14:46'),
+(17, 'KBL-HNE7YVAU', 40, 18, '2026-11-08', 4, 8000.00, 'Dendanya sudah', '2026-11-08 08:18:58', '2026-11-08 08:18:58'),
+(18, 'KBL-AA5FM7FE', 49, 18, '2026-11-08', 0, 0.00, 'Sudah', '2026-11-08 08:30:05', '2026-11-08 08:30:05');
 
 -- --------------------------------------------------------
 
@@ -3658,12 +3673,12 @@ INSERT INTO `returns` (`id`, `kode_kembali`, `loan_id`, `user_id`, `tanggal_kemb
 --
 
 CREATE TABLE `sessions` (
-  `id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_id` bigint UNSIGNED DEFAULT NULL,
-  `ip_address` varchar(45) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `user_agent` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
-  `payload` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `last_activity` int NOT NULL
+  `id` varchar(255) NOT NULL,
+  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `ip_address` varchar(45) DEFAULT NULL,
+  `user_agent` text DEFAULT NULL,
+  `payload` longtext NOT NULL,
+  `last_activity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -3671,36 +3686,9 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('18T8yKuML5Gske86cFEd7xe0RnrMdUdfgaeVXyXC', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36 Edg/156.0.0.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiV3VkUzVlWW9iRHJ4T3FzR3pqaGhacDhDVkJqeXdnZHA0dUNNOVJnSyI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9sb2dpbiI7czo1OiJyb3V0ZSI7czo1OiJsb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1793628540),
-('1zy8iyiIZ81oW6v4OuyeNJerSK2bmYPAcB2w6isT', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiYzg0c1lHcldhVHQzcTdFVjl0VWsxNjIxTUpmR2Z5MFVaNHB3bEI1ZSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1793804979),
-('3zKrH8uL13cmWrg34psr72FlykOwOgEc60bKHE5p', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoic1BLQ1loYTZ2Wm5NMFhHWTJ0MmpnckhyVmdVODY3Q240ZldFZnBSQSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1793804990),
-('8IYfXmT3Xpe6RAqBvg1sGZ1C9yGajuPsirQRP4mz', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoicXFGTFM5UU1rRmpoeWMxVHh4M2I1TEZsN2pRSHNmaENpZnRsR3pnUSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1793804976),
-('aNKN4RQdI9kDIUglV3MLj7bGRWuOA91pY7VsC3nZ', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoibWNTdk1TZmpYMzR3SVM3RDFFSnllb2dWdG1GVnFGUmQ1QWZjdU82RCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1793804981),
-('BRRjyZgk0PYCgEmJoC6c42gc3Tc9eKwZQN1NWPSb', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiUUN1d0JVcWY2MWlRWVBTcTBPZmJsVWhET3ozbExXRWg0ZGVaZVFNTSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1793804975),
-('CLGKBdNWOFaF0JC3aMKEV1WLY5O7eC7zEK0dQ4Ji', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiM3dYV01FUm5PWWFpdFpsN05ac3ROT0ZwN0xHU1RGMkhGdXV3Q3d3aCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1793804990),
-('dRNhRop6IumCcZNSxJhKXJJGEKGj8ZrPZvn4Sw4d', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiVll0cjJPTjNGdERNVWpZNTdCOWJKbVpIdGgzMlBMaWFiN2V4OE9CdCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1793804976),
-('gADLMmPh3siBVg4osnEbFvN1pYuTBvPaegz0zHoQ', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiY0lSSklaME1hdWJadHhsWmI5WDZ4ZWlhQzRrUjlua3BkNXdwdzJRTyI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1793804988),
-('GwkW58RQkj6dsryXBueZqXZqIkosBm7OWTpKR9TJ', 18, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36 Edg/156.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiM3lSajI0MDRLaGt5aEpDTVJTMThwcGpTd2Y3TnNDc0xjWExxWEVzdCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mjk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9yZXR1cm5zIjtzOjU6InJvdXRlIjtzOjEzOiJyZXR1cm5zLmluZGV4Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTg7fQ==', 1793719788),
-('H8hV31s0CT3aBhHUZSIK63aS2N5AswrExlCk6Ng8', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiRjVJQ3hhTTBGZFl0YUphNWpIMjBKY0lHTkNPbWY1alpmM3d4aTFhSyI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1793804989),
-('KXLznefhrnhUcokM9R2nPfNyAgWo0E3BeqgMSy32', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiYW5pWk1Nb0VIcmk3eTY2NkhMSUdPQzhON0VhQUp4R3czRHJtRHBNUCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1793804980),
-('Mk8nR0ISPkaJKug9hPKJmJ93hoVUJbWflkexGNn1', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiUWVndldPOWtXdzVLRHRVQW8zeFBYRjJ0dm1SYkpxdHJHSWZVR3lncyI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1793804987),
-('nVkIHstb3cE0z3T7FYd7NY83L4p3ZPxLnIUlW3yg', 18, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36 Edg/156.0.0.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiMmJOVDhldEpuRE9UMWs1YXc3aWVxMXR0V3hjNVU3VnpoSTdRcUtZQSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9sb2FucyI7czo1OiJyb3V0ZSI7czoxMToibG9hbnMuaW5kZXgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxODt9', 1793978454),
-('oXAyL5JXFeoxZn6Dgrn8WakQGp49XNPoGRpoKtQO', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoidWNLOXFGOXNrcTFYV2U4clA3R2ZuN1dXM05kWlZyMk43RDJEWE5LYiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1793804985),
-('PnsAAU2tsj3UbeD1rxOgLNPpmtvuuqhadoX065IJ', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiQjlkbUxQalhvY1FreXpWMU1XR3l6N3BkSHo3WW00M2F5aEhXQldUcyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMC9sb2dpbiI7czo1OiJyb3V0ZSI7czo1OiJsb2dpbiI7fX0=', 1793806637),
-('qRjhsbhiZ3jyJU9v8H09JhfEKxiK1v61JI4ah2cv', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiWEg4ZHppNmZjZmpUdHJTekJyYUtiek1jS216RE05NTNYQ0xRaWxCZiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1793804986),
-('RN3t6DG9UAPTo78t4k6n4fHDNDu3df4iCCp9l9w7', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoieHZOZXpVek02VE1DVkxhRUhGM1ZDUFg4VnNNZnJ5VmJ5RHBjZEFHQiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1793804987),
-('ROF4rHVkMMcLFfcj0jsQ9K5nB7ecbjVqK0T8XNSM', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiY01IY1A2a3N0ZFVYbUlTaUlveTVMWkZ3UkVybk55NkE1YjNGRFNjUyI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1793804983),
-('rS8oJU5FLsjv71FXWrXPeiCxtKIDkD24iCtd1okv', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiemppT2pDelgwRHdxVWNjamRDekVPcDB3Y3VoMnl3Zk5jVkg1WEJNQyI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1793804973),
-('SjY2kSJFHj1LRWaOa5BgsZOrKLoxWsGff627PAdZ', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiaG1SeEd2TEFKdWRidElNV1BJQU9Ga0JSUUl4aGJRYWs4R3RJMUNrZCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1793804974),
-('UdWBNvELIcspWvs93J7SpqI2hAV63UJKHxu5z7GY', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiQTIzMlJYMjdhc3V6N1lLQ0gzbEYzaFFxNHpWWGJHTTVQaHJaUkhvTCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1793804982),
-('v1LJtyVIgx50dplSYijmKdc1hCV2Y6LWpyMayOhp', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoidkZuMTBBN3lRVjlsYloxOTNyWm9UV1RzNmpmeEs3NGxyeWZ0UkVHTSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1793804977),
-('v86RkTbkQEsMKQBcderNXqHzZ0mJ0ga37x55CInE', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiZndHWkhBTDNUVDdPR3M3Ujk4cFpYc0tXUmV6SEtsWVljMFFRU3R1RyI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1793804973),
-('Vm6wgDamikyPTB3w69CpYW1uvWTRiGJ2DOpxntVA', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoic3RrRTUwRDBVR21uRjBoVXRNd0FocWJ0YTlwVURqdkpSWDdNTGhTMiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1793804981),
-('WWkxte9oPefqGm7eknngZs2rHRXXR9olcqF8Lu7k', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoibVlOaG9RUHVTNmw1QTE1TUFlTUJ1VllNNm9vRnVuZ0F0UVE3eDJvSCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1793804984),
-('x6nqia56zoXx3glNYqkOG7w8iG3vd6dBifDElU9c', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoieFJhZ0l3OVRaenZQeWJ6VnpXWWU4ejB6WHBEUUlLbEQ5U1A5ZzB5TCI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1793804984),
-('xuid3gALBY17pIhYiHBqWb7ex0md83cgx5AsEHCg', 18, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoid3RacVVoY1RCNE5FNjFmUE5YQzgyVVpmaVZmREdHaTBYdU40ajFKWiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9sb2FucyI7czo1OiJyb3V0ZSI7czoxMToibG9hbnMuaW5kZXgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxODt9', 1793631485),
-('zV7rhtNpbCSR74pRQh53ZMfm5104bhKV0cOIh79h', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiVVdzQTVXaTJ3c1ZaTm56a0FzWXpzNTM3VzdNRHByVHRnNmhxQ1dTSSI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1793804979),
-('zVP6Jc3OsLZXqHvuBP5LlStaURKZbr6YGdrfGIlp', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiR1VGRlNwakFrRXRmVWdwUnRZejhOSnN4RkpQbzZEQnBuN1JocHZkWiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly9sb2NhbGhvc3Q6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1793804978);
+('IQkCb8Nxla0umdaF73qUXYoLAU1lDe9SVk3eDblM', 18, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64; rv:159.0) Gecko/20100101 Firefox/159.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiTFFITmxMMjlkeWRreFhDNmRqV1hCQ0ZTRFZVWmRITGVkTUttTTVSViI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9sb2FucyI7czo1OiJyb3V0ZSI7czoxMToibG9hbnMuaW5kZXgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxODt9', 1794151902),
+('MnGsuAGFI7H3lId6YYyhBQ9J4gQy6tyIkjkqN3g3', 18, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64; rv:159.0) Gecko/20100101 Firefox/159.0', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiMThLZXlWSkptNUxJSWpIY2YyUUJST3k3WW1ZbHJWbFY5NUw5bDlLWiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9sb2FucyI7czo1OiJyb3V0ZSI7czoxMToibG9hbnMuaW5kZXgiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxODt9', 1794069164),
+('WuDgcZa0LaYtebT5apF4S41lYkh4JIHXkIcv5xJN', NULL, '127.0.0.1', 'Mozilla/5.0 (X11; Linux x86_64; rv:159.0) Gecko/20100101 Firefox/159.0', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiRVBNb1hRV1IySTJVOWRDdkRONnc3VW9SQTZRMDBpTUI4SlZmbndEQiI7czo5OiJfcHJldmlvdXMiO2E6Mjp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7czo1OiJyb3V0ZSI7Tjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319fQ==', 1794069112);
 
 -- --------------------------------------------------------
 
@@ -3709,9 +3697,9 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 --
 
 CREATE TABLE `settings` (
-  `id` bigint UNSIGNED NOT NULL,
-  `key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `value` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `key` varchar(255) NOT NULL,
+  `value` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -3736,13 +3724,13 @@ INSERT INTO `settings` (`id`, `key`, `value`, `created_at`, `updated_at`) VALUES
 --
 
 CREATE TABLE `shelves` (
-  `id` bigint UNSIGNED NOT NULL,
-  `kode_rak` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nama_rak` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lokasi` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `tipe` enum('rak','etalase') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'rak',
-  `kapasitas` int NOT NULL DEFAULT '0',
-  `deskripsi` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `kode_rak` varchar(255) NOT NULL,
+  `nama_rak` varchar(255) NOT NULL,
+  `lokasi` varchar(255) DEFAULT NULL,
+  `tipe` enum('rak','etalase') NOT NULL DEFAULT 'rak',
+  `kapasitas` int(11) NOT NULL DEFAULT 0,
+  `deskripsi` text DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -3762,24 +3750,24 @@ INSERT INTO `shelves` (`id`, `kode_rak`, `nama_rak`, `lokasi`, `tipe`, `kapasita
 --
 
 CREATE TABLE `users` (
-  `id` bigint UNSIGNED NOT NULL,
-  `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `telepon` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `telepon` varchar(20) DEFAULT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `role` enum('admin','petugas','anggota') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'petugas',
-  `member_id` bigint UNSIGNED DEFAULT NULL,
-  `status` enum('pending','approved','rejected') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'approved',
-  `foto` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `remember_token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `password` varchar(255) DEFAULT NULL,
+  `role` enum('admin','petugas','anggota') NOT NULL DEFAULT 'petugas',
+  `member_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `status` enum('pending','approved','rejected') NOT NULL DEFAULT 'approved',
+  `foto` varchar(255) DEFAULT NULL,
+  `remember_token` varchar(100) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `approved_by` bigint UNSIGNED DEFAULT NULL,
+  `approved_by` bigint(20) UNSIGNED DEFAULT NULL,
   `approved_at` timestamp NULL DEFAULT NULL,
   `rejected_at` timestamp NULL DEFAULT NULL,
-  `rejected_reason` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
+  `rejected_reason` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -4118,199 +4106,199 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `account_validation_logs`
 --
 ALTER TABLE `account_validation_logs`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `authors`
 --
 ALTER TABLE `authors`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `books`
 --
 ALTER TABLE `books`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1238;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1238;
 
 --
 -- AUTO_INCREMENT for table `bukus`
 --
 ALTER TABLE `bukus`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1464;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1464;
 
 --
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `cart_items`
 --
 ALTER TABLE `cart_items`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `fines`
 --
 ALTER TABLE `fines`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `fine_histories`
 --
 ALTER TABLE `fine_histories`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `jobs`
 --
 ALTER TABLE `jobs`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `kategoris`
 --
 ALTER TABLE `kategoris`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `lama_books`
 --
 ALTER TABLE `lama_books`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `lama_failed_jobs`
 --
 ALTER TABLE `lama_failed_jobs`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `lama_jobs`
 --
 ALTER TABLE `lama_jobs`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `lama_migrations`
 --
 ALTER TABLE `lama_migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `lama_users`
 --
 ALTER TABLE `lama_users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `loans`
 --
 ALTER TABLE `loans`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `loan_details`
 --
 ALTER TABLE `loan_details`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `peminjam`
 --
 ALTER TABLE `peminjam`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `peminjaman`
 --
 ALTER TABLE `peminjaman`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `peminjamans`
 --
 ALTER TABLE `peminjamans`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=135;
 
 --
 -- AUTO_INCREMENT for table `peminjams`
 --
 ALTER TABLE `peminjams`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=83;
 
 --
 -- AUTO_INCREMENT for table `pengembalian`
 --
 ALTER TABLE `pengembalian`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `petugas`
 --
 ALTER TABLE `petugas`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `publishers`
 --
 ALTER TABLE `publishers`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `returns`
 --
 ALTER TABLE `returns`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `settings`
 --
 ALTER TABLE `settings`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `shelves`
 --
 ALTER TABLE `shelves`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- Constraints for dumped tables
